@@ -9,3 +9,5 @@ end
 for key, value in pairs(upgrade-list.list.rm) do
     os.execute (rm -v upgrade-list.list.rm[key])
 end
+
+os.execute (rm -v upgrade-list)
