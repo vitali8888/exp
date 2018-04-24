@@ -1,9 +1,15 @@
 local list = {}
 
-list.download = {
-"helloworld"
-}
 
-list.rm = {}
+function list.download()
+    t = {
+    "helloworld"}
+    return t
+end
+
+function list.rm()
+    t = {}
+    return t
+end
 
 return list
