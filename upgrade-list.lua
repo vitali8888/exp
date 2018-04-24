@@ -2,8 +2,8 @@ local list = {}
 
 
 function list.download()
-    t = {
-    "helloworld"}
+    t = {}
+    t[] = "helloworld"
     return t
 end
 
