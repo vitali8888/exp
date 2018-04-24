@@ -2,8 +2,8 @@ os.execute("wget -f https://raw.githubusercontent.com/OrlaithMichael/-experiment
 
 local upgrade = require("upgrade-list")
 
-for key, value in pairs(upgrade.list.u) do
-    os.execute("wget -f https://raw.githubusercontent.com/OrlaithMichael/-experimental/master/"..upgrade.list.u[key])
+for key, value in pairs(upgrade.list.download) do
+    os.execute("wget -f https://raw.githubusercontent.com/OrlaithMichael/-experimental/master/"..upgrade.list.download[key])
 end
 
 for key, value in pairs(upgrade.list.rm) do
