@@ -1,5 +1,13 @@
 os.execute("wget -f https://raw.githubusercontent.com/OrlaithMichael/-experimental/master/upgrade-list.lua")
+os.execute("wget -f https://raw.githubusercontent.com/OrlaithMichael/-experimental/master/download-list")
 
+local file = io.open("download-list")
+
+for line in file:lines() do
+    os.execute("wget -f https://raw.githubusercontent.com/OrlaithMichael/-experimental/master/"..line)
+end
+
+--[[
 local upgrade = require("upgrade-list")
 
 for key, value in pairs(upgrade.download) do
@@ -11,3 +19,4 @@ for key, value in pairs(upgrade.rm) do
 end
 
 os.execute ("rm -v upgrade-list.lua")
+]]
