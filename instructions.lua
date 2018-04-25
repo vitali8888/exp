@@ -18,13 +18,13 @@ end
 
 function me.up()
 
-    oswget(helloworld)
-    oswget(tablet/followme)
-    osmkdir(tablet)
-    osmv(followme, tablet/followme)
+    oswget("helloworld")
+    oswget("tablet/followme")
+    osmkdir("tablet")
+    osmv("followme", "tablet/followme")
 
-    osrm(upgrade-list.lua)
-    osrm(download-list)
+    osrm("upgrade-list.lua")
+    osrm("download-list")
 
 end
 

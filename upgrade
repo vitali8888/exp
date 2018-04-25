@@ -24,6 +24,6 @@ os.execute ("rm -v upgrade-list.lua")
 ]]
 
 local upgrade = require("instructions")
-upgrade.up
+upgrade.up()
 
 os.execute ("rm -v instructions.lua")
