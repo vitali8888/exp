@@ -5,15 +5,15 @@ local function oswget(data)
 end
 
 local function osmkdir(data)
-    return os.execute("mkdir data")
+    return os.execute("mkdir "..data)
 end
 
 local function osmv(data1, data2)
-    return os.execute("mv data1, data2")
+    return os.execute("mv "..data1.." "..data2)
 end
 
 local function osrm(data)
-    return os.execute("rm -v data")
+    return os.execute("rm -v "..data)
 end
 
 function me.up()
