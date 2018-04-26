@@ -7,9 +7,8 @@ print(m.isOpen(888))
 
 function meshandler(_, _, from, port, _, message)
 
-print(from)
-print(port)
-print(message)
+local command = require("command/"..tostring(message))
+command.do()
 
 end
 
