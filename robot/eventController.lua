@@ -1,12 +1,12 @@
 local me = {}
 
-events = {}
+local events = {}
 
 function me.add(name, signal, handler)
 
     events[name] = {}
-    events[name]["signal"] = signal
-    events[name]["handler"] = handler
+    events[name].signal = signal
+    events[name].handler = handler
 
     local eventHandler = require ("eventHandler/"..handler)
 
@@ -19,7 +19,9 @@ function me.drop(name)
 
     local event = require("event")
 
-    event.ignore(events[name]["signal"], events[name]["handler"])
+    event.ignore(events[name].signal, events[name].handler)
+    events[name] = nil
+
 end
 
 function me.dropAll()
