@@ -1,0 +1,2 @@
+local component = require ("component")
+print()component.modem.getStrength()
