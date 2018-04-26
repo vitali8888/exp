@@ -1,7 +1,7 @@
 local me = {}
 
 
-local function Class(super)
+function me.class(super)
     local obj = {}
     obj.__index = obj
     setmetatable(obj, super)
@@ -24,6 +24,5 @@ local function Class(super)
 
 end
 
-me.class = Class
 
 return me

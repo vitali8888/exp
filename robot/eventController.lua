@@ -11,7 +11,7 @@ function me.add(name, signal, handler)
     local eventHandler = require ("eventHandler/"..handler)
 
     local event = require ("event")
-    event.listen(signal, eventHandler.do)
+    event.listen(signal, "eventHandler.do")
 
     return eventHandler
 
