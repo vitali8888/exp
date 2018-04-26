@@ -18,13 +18,10 @@ end
 
 function me.up()
 
-    --oswget("helloworld")
-    --oswget("tablet/followme")
     osmkdir("tablet")
-    --osmv("followme", "tablet/followme")
+    oswget("tablet/turnaround")
+    osmv("turnaround", "tablet/turnaround")
 
-    osrm("helloworld")
-    osrm("tablet/followme")
 
 end
 
