@@ -8,9 +8,12 @@ print(m.isOpen(888))
 
 meshandler(_, _, from, port, _, message)
 
-message = tostring(message)
-local command = require ("command/"..message)
-command.do
+print(from)
+print(port)
+print(message)
+--message = tostring(message)
+--local command = require ("command/"..message)
+--command.do()
 end
 
 event.listen("modem_message", meshandler)
