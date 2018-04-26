@@ -18,16 +18,25 @@ end
 
 function me.up()
 
+
+    print("creating directories")
+
     osmkdir("tablet")
     osmkdir("robot")
     osmkdir("robot/command")
 
+    print ("getting data")
+
     oswget("tablet/turnaround")
-    osmv("turnaround", "tablet/turnaround")
-
-
     oswget("robot/start")
+    oswget("robot/command/turnaround.lua")
+
+
+    print ("moooving data")
+
+    osmv("turnaround", "tablet/turnaround")
     osmv("start", "robot/start")
+    osmv("turnaround.lua", "robot/command/turnaround.lua")
 
 end
 

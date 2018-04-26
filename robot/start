@@ -5,8 +5,12 @@ local m = component.modem
 m.open(888)
 print(m.isOpen(888))
 
-m.broadcast(888, "this is a test from robot")
 
-local _, _, from, port, _, message = event.pull("modem_message")
+meshandler(_, _, from, port, _, message)
 
-print ("got a message from ".. from .. "on port " .. port .. " : " .. tostring(message))
+message = tostring(message)
+local command = require ("command/"..message)
+command.do
+end
+
+event.listen("modem_message", meshandler)
