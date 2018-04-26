@@ -13,6 +13,8 @@ function me.add(name, signal, handler)
     local event = require ("event")
     event.listen(signal, eventHandler.do)
 
+    return eventHandler
+
 end
 
 function me.drop(name)
@@ -37,5 +39,6 @@ function me.dropAll()
 end
 
 local class = require ("class/singleton")
+class = class.class.new()
 setmetatable(me, class)
 return me

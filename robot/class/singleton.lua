@@ -1,3 +1,6 @@
+local me = {}
+
+
 local function Class(super)
     local obj = {}
     obj.__index = obj
@@ -17,11 +20,10 @@ local function Class(super)
         return obj._instance
     end
 
-
-    function obj.add
-
     return obj
 
 end
 
-return Class
+me.class = Class
+
+return me
