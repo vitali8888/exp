@@ -5,6 +5,7 @@ local m = component.modem
 m.open(888)
 print(m.isOpen(888))
 
+event.listen("modem_message", meshandler)
 
 meshandler(_, _, from, port, _, message)
 
@@ -14,4 +15,3 @@ print(message)
 
 end
 
-event.listen("modem_message", meshandler)
