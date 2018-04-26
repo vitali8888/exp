@@ -19,10 +19,13 @@ end
 function me.up()
 
     osmkdir("tablet")
+    osmkdir("robot")
+    osmkdir("robot/command")
+
     oswget("tablet/turnaround")
     osmv("turnaround", "tablet/turnaround")
 
-    osmkdir("robot")
+
     oswget("robot/start")
     osmv("start", "robot/start")
 
