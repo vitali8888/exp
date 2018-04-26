@@ -22,6 +22,9 @@ function me.up()
     oswget("tablet/turnaround")
     osmv("turnaround", "tablet/turnaround")
 
+    osmkdir("robot")
+    oswget("robot/start")
+    osmv("start", "robot/start")
 
 end
 

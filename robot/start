@@ -1,0 +1,12 @@
+local component = require("component")
+local event = require("event")
+
+local m = component.modem
+m.open(888)
+print(m.isOpen(888))
+
+m.broadcast(888, "this is a test from robot")
+
+local _, _, from, port, _, message = event.pull("modem_message")
+
+print ("got a message from ".. from .. "on port " .. port .. " : " .. tostring(message))
