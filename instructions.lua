@@ -24,12 +24,18 @@ function me.up()
     osmkdir("tablet")
     osmkdir("robot")
     osmkdir("robot/command")
+    osmkdir("robot/eventHandler")
+    osmkdir("robot/class")
 
     print ("getting data")
 
     oswget("tablet/turnaround")
     oswget("robot/start")
     oswget("robot/command/turnaround.lua")
+    oswget("robot/eventController.lua")
+    oswget("robot/eventHandler/tabletmessage.lua")
+    oswget("robot/eventHandler/break.lua")
+    oswget("robot/class/singleton.lua")
 
 
     print ("moooving data")
@@ -37,6 +43,10 @@ function me.up()
     osmv("turnaround", "tablet/turnaround")
     osmv("start", "robot/start")
     osmv("turnaround.lua", "robot/command/turnaround.lua")
+    osmv("eventController.lua", "robot/eventController.lua")
+    osmv("tabletmessage.lua", "robot/eventHandler/tabletmessage.lua")
+    osmv("break.lua", "robot/eventHandler/break.lua")
+    osmv("singleton.lua", "robot/class/singleton.lua")
 
 end
 

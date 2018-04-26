@@ -5,14 +5,12 @@ local m = component.modem
 m.open(888)
 print(m.isOpen(888))
 
-function meshandler(_, _, from, port, _, message)
+local eventController = require ("eventController")
 
-local command = require("command/"..tostring(message))
-command.do()
+eC = eventController.new()
 
-end
-
-event.listen("modem_message", meshandler)
+eC.add("tabletmessage", "modem_message", "tabletmessage")
+eC.add("break", "key_up", "break")
 
 
 
