@@ -38,7 +38,7 @@ function me.dropAll()
 
 end
 
-local class = require ("class/singleton")
-class = class.class.new()
-setmetatable(me, class)
-return me
+local classa = require ("class/singleton")
+local classb = classa.class.new()
+classb.eC = me
+return classb
