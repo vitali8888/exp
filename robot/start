@@ -7,7 +7,7 @@ print(m.isOpen(888))
 
 local eventController = require ("eventController")
 
-eC = eventController.eC()
+eC = eventController.new()
 
 eC.add("tabletmessage", "modem_message", "tabletmessage")
 --[[eC.add("break", "key_up", "break")]]
