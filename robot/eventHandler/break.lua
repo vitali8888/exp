@@ -1,12 +1,10 @@
-local me = {}
-
-function me.do(qw, qq, qe ,qr)
+local function me(qw, qq, qe ,qr)
 
 
     if (qr == 197) then
-        local eventController = require ("eventController")
-        eC = eventController.new()
-        eC.dropAll()
+        local class = require ("class/singleton")
+        obj = class.new()
+        obj.eC.dropAll()
     end
 
 end

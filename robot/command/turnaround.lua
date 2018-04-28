@@ -1,6 +1,4 @@
-local me = {}
-
-function me.do()
+local function me()
     local robot = require("robot")
     robot.turnLeft()
     robot.turnLeft()
