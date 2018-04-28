@@ -1,6 +1,0 @@
-local component = require ("component")
-local m = component.modem
-
-m.open(888)
-
-m.broadcast(888, "hello")

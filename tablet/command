@@ -9,4 +9,4 @@ repeat
     command = io.read()
     m.broadcast(888, command)
 
-until command ~= "exit"
+until command == "exit"
