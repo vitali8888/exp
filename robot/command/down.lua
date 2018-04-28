@@ -1,5 +1,8 @@
-local function me()
+local function me(message)
     local robot = require("robot")
-    robot.down()
+    local times = tonumber(message[2])
+    for i=1, times do
+        robot.down()
+    end
 end
 return me

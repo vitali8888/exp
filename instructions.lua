@@ -29,7 +29,6 @@ function me.up()
 
     print ("getting data")
 
-    oswget("tablet/turnaround")
     oswget("robot/start")
     oswget("robot/command/turnaround.lua")
     oswget("robot/eventController.lua")
@@ -46,7 +45,6 @@ function me.up()
 
     print ("moooving data")
 
-    osmv("turnaround", "tablet/turnaround")
     osmv("start", "robot/start")
     osmv("turnaround.lua", "robot/command/turnaround.lua")
     osmv("eventController.lua", "robot/eventController.lua")
