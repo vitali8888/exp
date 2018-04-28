@@ -36,6 +36,7 @@ function me.up()
     oswget("robot/eventHandler/tabletmessage.lua")
     oswget("robot/eventHandler/break.lua")
     oswget("robot/class/singleton.lua")
+    oswget("robot/eventHandler/test.lua")
 
 
     print ("moooving data")
@@ -47,6 +48,7 @@ function me.up()
     osmv("tabletmessage.lua", "robot/eventHandler/tabletmessage.lua")
     osmv("break.lua", "robot/eventHandler/break.lua")
     osmv("singleton.lua", "robot/class/singleton.lua")
+    osmv("test.lua", "robot/eventHandler/test.lua")
 
 end
 
