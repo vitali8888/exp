@@ -10,7 +10,6 @@ local class = require ("class/singleton")
 obj = class.new()
 obj.eC = eventController
 
-obj.eC.addEvent("test", "key_down", "test")
 obj.eC.addEvent("tabletmessage", "modem_message", "tabletmessage")
 obj.eC.addEvent("break", "key_up", "break")
 
