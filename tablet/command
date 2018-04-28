@@ -1,0 +1,12 @@
+local component = require ("component")
+local m = component.modem
+
+m.open(888)
+
+local command
+repeat
+    io.flush()
+    command = io.read()
+    m.broadcast(888, command)
+
+until command ~= "exit"

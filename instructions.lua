@@ -36,6 +36,12 @@ function me.up()
     oswget("robot/eventHandler/tabletmessage.lua")
     oswget("robot/eventHandler/break.lua")
     oswget("robot/class/singleton.lua")
+    oswget("robot/command/forward.lua")
+    oswget("robot/command/turnleft.lua")
+    oswget("robot/command/turnright.lua")
+    oswget("robot/command/up.lua")
+    oswget("robot/command/down.lua")
+    oswget("tablet/command")
 
 
     print ("moooving data")
@@ -47,6 +53,16 @@ function me.up()
     osmv("tabletmessage.lua", "robot/eventHandler/tabletmessage.lua")
     osmv("break.lua", "robot/eventHandler/break.lua")
     osmv("singleton.lua", "robot/class/singleton.lua")
+    osmv("forward.lua", "robot/command/forward.lua")
+    osmv("turnleft.lua", "robot/command/turnleft.lua")
+    osmv("turnright.lua", "robot/command/turnright.lua")
+    osmv("up.lua", "robot/command/up.lua")
+    osmv("down.lua", "robot/command/down.lua")
+    osmv("command", "tablet/command")
+
+    print("deleting data")
+
+    osrm("tablet/turnaround")
 
 end
 
