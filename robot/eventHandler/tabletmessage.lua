@@ -3,7 +3,7 @@ local function me(_, _, from, port, _, message)
     local strmes = tostring(message)
     local message = {}
     local i=1
-    for w in string.gmatch(strmes, "%a+") do
+    for w in string.gmatch(strmes, "%w+") do
         message[i] = w
         i = i + 1
     end
