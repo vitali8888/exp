@@ -3,7 +3,6 @@ local event = require("event")
 
 local m = component.modem
 m.open(888)
-print(m.isOpen(888))
 
 local eventController = require ("eventController")
 local class = require ("class/singleton")
@@ -13,5 +12,6 @@ obj.eC = eventController
 obj.eC.addEvent("tabletmessage", "modem_message", "tabletmessage")
 obj.eC.addEvent("break", "key_up", "break")
 
+print("robot active")
 
 

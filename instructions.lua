@@ -26,6 +26,7 @@ function me.up()
     osmkdir("robot/command")
     osmkdir("robot/eventHandler")
     osmkdir("robot/class")
+    osmkdir("robot/actions")
 
     print ("getting data")
 
@@ -41,6 +42,9 @@ function me.up()
     oswget("robot/command/up.lua")
     oswget("robot/command/down.lua")
     oswget("tablet/command")
+    oswget("tablet/following")
+    oswget("robot/actions/messageSender.lua")
+    oswget("robot/command/getrelativeposition.lua")
 
 
     print ("moooving data")
@@ -57,6 +61,9 @@ function me.up()
     osmv("up.lua", "robot/command/up.lua")
     osmv("down.lua", "robot/command/down.lua")
     osmv("command", "tablet/command")
+    osmv("following", "tablet/following")
+    osmv("messageSender.lua", "robot/actions/messageSender.lua")
+    osmv("getrelativeposition.lua", "robot/command/getrelativeposition.lua")
 
     print("deleting data")
 

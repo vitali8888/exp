@@ -1,0 +1,23 @@
+local event = require("event")
+local component = require("component")
+local m = component.modem
+local gpu = component.gpu
+m.open(888)
+
+function mesHandle(_, _, from, port, _, message)
+    local strmes = tostring(message)
+    local message = {}
+    local i=1
+        for w in string.gmatch(strmes, "%w+") do
+            message[i] = w
+            i = i + 1
+        end
+    gpu.setForeground(0x0000FF)
+    print (message[1]..":")
+    gpu.setForeground(0x00FF00)
+    for j=2, i do
+        print (" "..message[j])
+    end
+    gpu.setForeground(0xFFFFFF)
+end
+event.listen("modem_message", mesHandl)

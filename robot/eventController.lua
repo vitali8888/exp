@@ -14,7 +14,6 @@ function obj.addEvent(name, signal, handler)
     obj.events[name].handler = eventHandler
     event.listen(signal, eventHandler)
 
-
 end
 
 function obj.dropEvent(name)
