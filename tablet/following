@@ -20,4 +20,6 @@ function mesHandle(_, _, from, port, _, message)
     end
     gpu.setForeground(0xFFFFFF)
 end
-event.listen("modem_message", mesHandl)
+event.listen("modem_message", mesHandle)
+
+print("following active")

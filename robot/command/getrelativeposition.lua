@@ -3,8 +3,8 @@ local function me()
 local component = require ("component")
 local sender = require ("actions/messageSender")
 
-local x, y, z = component.navigation.getPosition()
-local message = x..":"..y..":"..z
+local x, y, z, str = component.navigation.getPosition()
+local message = x..":"..y..":"..z.."."..str
 sender(message)
 
 end
