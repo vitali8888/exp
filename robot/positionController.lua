@@ -2,7 +2,7 @@ local me = {}
 
 me.correction = {}
 
-me.setRealPosition(pos)
+function me.setRealPosition(pos)
     local component = require ("component")
     local sender = require ("actions/messageSender")
 
@@ -13,9 +13,10 @@ me.setRealPosition(pos)
     me.correction.x = pos.x - rp.x
     me.correction.y = pos.y - rp.y
     me.correction.z = pos.z - rp.z
+
 end
 
-me.getRelativePosition()
+function me.getRelativePosition()
     local component = require ("component")
     local x, y, z, str = component.navigation.getPosition()
 
@@ -27,7 +28,7 @@ me.getRelativePosition()
     return pos
 end
 
-me.getPosition()
+function me.getPosition()
     local rp = {}
     rp = me.getRelativePosition()
     if (rp.x == nil or rp.y == nil or rp.z == nil) then sender("Error! out of the navigation range!") do return end end
@@ -41,3 +42,5 @@ me.getPosition()
     return pos
 
 end
+
+return me
