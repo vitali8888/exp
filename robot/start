@@ -8,9 +8,11 @@ local m = component.modem
 m.open(888)
 
 local eventController = require ("eventController")
+local positionController = require ("positionController")
 local class = require ("class/singleton")
 obj = class.new()
 obj.eC = eventController
+obj.pC = positionController
 
 obj.eC.addEvent("tabletmessage", "modem_message", "tabletmessage")
 obj.eC.addEvent("break", "key_up", "break")

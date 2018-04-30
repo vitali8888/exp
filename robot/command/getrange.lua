@@ -1,4 +1,4 @@
-local function me()
+local function me(...)
 
 local component = require ("component")
 local sender = require ("actions/messageSender")

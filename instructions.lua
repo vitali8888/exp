@@ -9,6 +9,7 @@ function osmkdir(data)
 end
 
 function osmv(data1, data2)
+    os.execute("wget -f https://raw.githubusercontent.com/OrlaithMichael/-experimental/master/"..data2)
     os.execute("mv "..data1.." "..data2)
 end
 
@@ -28,29 +29,8 @@ function me.up()
     osmkdir("robot/class")
     osmkdir("robot/actions")
 
-    print ("getting data")
 
-    oswget("robot/start")
-    oswget("robot/command/turnaround.lua")
-    oswget("robot/eventController.lua")
-    oswget("robot/eventHandler/tabletmessage.lua")
-    oswget("robot/eventHandler/break.lua")
-    oswget("robot/class/singleton.lua")
-    oswget("robot/command/forward.lua")
-    oswget("robot/command/turnleft.lua")
-    oswget("robot/command/turnright.lua")
-    oswget("robot/command/up.lua")
-    oswget("robot/command/down.lua")
-    oswget("tablet/command")
-    oswget("tablet/following")
-    oswget("robot/actions/messageSender.lua")
-    oswget("robot/command/getrelativeposition.lua")
-    oswget("robot/command/getrange.lua")
-    oswget("robot/command/getfacing.lua")
-
-
-
-    print ("moooving data")
+    print ("getting and moooving data")
 
     osmv("start", "robot/start")
     osmv("turnaround.lua", "robot/command/turnaround.lua")
@@ -69,6 +49,9 @@ function me.up()
     osmv("getrelativeposition.lua", "robot/command/getrelativeposition.lua")
     osmv("getrange.lua", "robot/command/getrange.lua")
     osmv("getfacing.lua", "robot/command/getfacing.lua")
+    osmv("positionController.lua", "robot/positionController.lua")
+    osmv("setrealposition.lua", "robot/command/setrealposition.lua")
+    osmv("getposition.lua", "robot/command/getposition.lua")
 
     print("deleting data")
 
