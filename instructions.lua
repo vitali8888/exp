@@ -45,6 +45,9 @@ function me.up()
     oswget("tablet/following")
     oswget("robot/actions/messageSender.lua")
     oswget("robot/command/getrelativeposition.lua")
+    oswget("robot/command/getrange.lua")
+    oswget("robot/command/getfacing.lua")
+
 
 
     print ("moooving data")
@@ -64,6 +67,8 @@ function me.up()
     osmv("following", "tablet/following")
     osmv("messageSender.lua", "robot/actions/messageSender.lua")
     osmv("getrelativeposition.lua", "robot/command/getrelativeposition.lua")
+    osmv("getrange.lua", "robot/command/getrange.lua")
+    osmv("getfacing.lua", "robot/command/getfacing.lua")
 
     print("deleting data")
 
