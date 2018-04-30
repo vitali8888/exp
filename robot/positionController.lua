@@ -29,6 +29,7 @@ function me.getRelativePosition()
 end
 
 function me.getPosition()
+    local sender = require ("actions/messageSender")
     local rp = {}
     rp = me.getRelativePosition()
     if (rp.x == nil or rp.y == nil or rp.z == nil) then sender("Error! out of the navigation range!") do return end end
