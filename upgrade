@@ -1,3 +1,6 @@
+local component = require("component")
+if (component.isAvailable("internet") == false) then print("requires internet card") do return end end
+
 os.execute("wget -f https://raw.githubusercontent.com/OrlaithMichael/-experimental/master/instructions.lua")
 
 local upgrade = require("instructions")

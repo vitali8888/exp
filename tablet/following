@@ -1,13 +1,17 @@
 local event = require("event")
 local component = require("component")
+if (component.isAvailable("modem") == false) then print("requires wireless card") do return end end
 local m = component.modem
 local gpu = component.gpu
 m.open(888)
 
+
+
 function mesHandle(_, _, from, port, _, message)
 
     gpu.setForeground(0x0000FF)
-    print (message)
+
+    print ("X"..message)
 
     gpu.setForeground(0xFFFFFF)
 end

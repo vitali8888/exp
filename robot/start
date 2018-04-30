@@ -1,6 +1,9 @@
 local component = require("component")
 local event = require("event")
 
+if (component.isAvailable("modem") == false) then print("requires wireless card") do return end end
+if (component.isAvailable("navigation") == false) then print("requires navigation upgrade") do return end end
+
 local m = component.modem
 m.open(888)
 
