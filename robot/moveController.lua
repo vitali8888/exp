@@ -63,12 +63,12 @@ function me.moveY()
 
     if (Y > 0) then
         for i=1, Y do
-        if robot.up() == false then return true end
+        if robot.up() == nil then return true end
         end
     elseif (Y < 0) then
         Y = 0 - Y
         for i=1, Y do
-        if robot.down() == false then return true end
+        if robot.down() == nil then return true end
         end
     end
 
@@ -93,7 +93,7 @@ function me.moveX()
         end
 
     for i=1, X do
-        if robot.forward() == false then return true end
+        if robot.forward() == nil then return true end
     end
 
 end
@@ -117,7 +117,7 @@ function me.moveZ()
         end
 
     for i=1, Z do
-        if robot.forward() == false then return true end
+        if robot.forward() == nil then return true end
     end
 end
 
