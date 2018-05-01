@@ -2,6 +2,31 @@ local me = {}
 
 me.correction = {}
 
+me.validThings = {"toolchest", "lootchest", "charger", "lastaction", "borderfirst", "bordersecond"}
+me.points = {}
+
+function me.validateThing(Thing)
+    for key, value in pairs(me.validThings) do
+        if value == Thing then return true end
+    end
+    return false
+end
+
+function me.setPosition(pos, Thing)
+    local sender = require ("actions/messageSender")
+    if me.validateThing == false then sender("Error! invalid name of point for set position") do return end end
+    local rp = me.positionToRelative(pos)
+    if me.checkRange(rp) == false then sender("Error! position is out of range NU") do return end end
+    me.points[Thing] = rp
+
+    file = io.open("reserveData/"..Thing, "w+")
+    file:write(tostring(rp.x))
+    file:write(tostring(rp.y))
+    file:write(tostring(rp.z))
+    file:close()
+
+end
+
 function me.setRealPosition(pos)
     local component = require ("component")
     local sender = require ("actions/messageSender")
@@ -61,6 +86,18 @@ function me.positionToRelative(pos) --transform real position to relative (table
     rp.z = pos.z - me.correction.z
 
     return rp
+end
+
+function me.checkRange(pos) --table relative position
+    local component = require ("component")
+    local positive = component.navigation.getRange()
+    local negative = 0 - positive
+
+    for key, value in pairs(pos) do
+        if (value > positive or value < negative)
+            then return false end
+        return true
+    end
 end
 
 return me

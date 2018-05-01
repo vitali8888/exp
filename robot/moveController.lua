@@ -11,7 +11,7 @@ obj = class.new()
 
 function me.moveTo(pos) --table (pos.x, pos.y, pos.z) relative position
     me.goal = pos
-    if (me.checkRange(pos) == false)
+    if (obj.pC.checkRange(pos) == false)
         then
             sender("Error! goal for move is out of range!")
             do return end
@@ -65,17 +65,6 @@ function me.checkGoal()
     return false
 end
 
-function me.checkRange(pos) --table relative position
-    local component = require ("component")
-    local positive = component.navigation.getRange()
-    local negative = 0 - positive
-
-    for key, value in pairs(pos) do
-        if (value > positive or value < negative)
-            then return false end
-        return true
-    end
-end
 
 function me.moveY(Y)
     local currentPos = {}
