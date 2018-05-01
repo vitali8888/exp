@@ -11,13 +11,15 @@ function me.init()
     local sender = require("actions/messageSender")
     local filesystem = require ("filesystem")
     local component = require("component")
+    local pos = {}
     for key,value in pairs(me.validThings) do
         if (filesystem.exists(me.wD.."/reserveData/"..value) == true)
             then
              local file = io.open("reserveData/"..value, "r")
-             me.points[value].x = file:read()
-             me.points[value].y = file:read()
-             me.points[value].z = file:read()
+             pos.x = file:read()
+             pos.y = file:read()
+             pos.z = file:read()
+             me.points[value] = pos
         end
     end
 
