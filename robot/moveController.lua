@@ -30,13 +30,14 @@ function me.moveTo(pos) --table (pos.x, pos.y, pos.z) relative position
 
         if (currentPos.x == newCurrentPos.x and currentPos.y == newCurrentPos.y and currentPos.z == newCurrentPos.z)
             then
-                me.bypass(attempt)
-                attempt = attempt + 1
                 if (attempt == me.maxAttempts)
                     then
                     sender("Error! robot stuck")
                     break
-                end
+                end            
+                me.bypass(attempt)
+                attempt = attempt + 1
+
             end
 
     until me.checkGoal()
