@@ -93,11 +93,11 @@ function me.setRealPosition(pos)
     me.correction.y = pos.y - rp.y
     me.correction.z = pos.z - rp.z
 
-    local file = io.open("reserveData/correction, "w")
+    local file = io.open("reserveData/correction", "w")
     file:write(component.navigation.address)
-    file:write(tostring(me.correction.x))
-    file:write(tostring(me.correction.y))
-    file:write(tostring(me.correction.z))
+    file:write(tostring(me.correction.x).."\r\n")
+    file:write(tostring(me.correction.y).."\r\n")
+    file:write(tostring(me.correction.z).."\r\n")
     file:close()
 
 end
