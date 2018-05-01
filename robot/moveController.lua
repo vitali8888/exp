@@ -1,6 +1,9 @@
 local me = {}
 
 me.goal = {}
+me.maxAttempts = 7
+me.range = 15
+
 local class = require("class/singleton")
 local sender = require("actions/messageSender")
 local robot = require ("robot")
@@ -16,6 +19,7 @@ function me.moveTo(pos) --table (pos.x, pos.y, pos.z) relative position
 
     local currentPos = {}
     currentPos = obj.pC.getRelativePosition()
+    local attempt = 0
 
     repeat
         currentPos = obj.pC.getRelativePosition()
@@ -26,11 +30,28 @@ function me.moveTo(pos) --table (pos.x, pos.y, pos.z) relative position
 
         if (currentPos.x == newCurrentPos.x and currentPos.y == newCurrentPos.y and currentPos.z == newCurrentPos.z)
             then
-                sender("Error! robot stuck")
-                break
+                me.bypass(attempt)
+                attempt = attempt + 1
+                if (attempt == me.maxAttempts)
+                    then
+                    sender("Error! robot stuck")
+                    break
+                end
             end
 
     until me.checkGoal()
+
+end
+
+function me.bypass(mp)
+
+    local math = require ("math")
+    local lower = math.floor(0 - me.range*(1/(me.maxAttempts - mp)))
+    local upper = 0 - lower
+
+    me.moveY(math.random(lower, upper))
+    me.moveX(math.random(lower, upper))
+    me.moveZ(math.random(lower, upper))
 
 end
 
@@ -56,10 +77,12 @@ function me.checkRange(pos) --table relative position
     end
 end
 
-function me.moveY()
+function me.moveY(Y = nil)
     local currentPos = {}
     currentPos = obj.pC.getRelativePosition()
-    local Y = me.goal.y - currentPos.y
+    if (Y == nil) then Y = me.goal.y - currentPos.y end
+
+    if (Y == 0) then return true end
 
     if (Y > 0) then
         for i=1, Y do
@@ -74,11 +97,12 @@ function me.moveY()
 
 end
 
-function me.moveX()
+function me.moveX(X = nil)
     local currentPos = {}
     currentPos = obj.pC.getRelativePosition()
-    local X = me.goal.x - currentPos.x
+    if (X == nil) then X = me.goal.x - currentPos.x end
 
+    if (X == 0) then return true end
     if (obj.pC.getFacing() ~= 5)
         then
             repeat
@@ -98,11 +122,12 @@ function me.moveX()
 
 end
 
-function me.moveZ()
+function me.moveZ(Z = nil)
     local currentPos = {}
     currentPos = obj.pC.getRelativePosition()
-    local Z = me.goal.z - currentPos.z
+    if (Z == nil) then Z = me.goal.z - currentPos.z end
 
+    if (Z == 0) then return true end
     if (obj.pC.getFacing() ~= 3)
         then
             repeat
