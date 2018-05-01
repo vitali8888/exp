@@ -16,6 +16,7 @@ obj.eC = eventController
 obj.pC = positionController
 obj.mC = moveController
 
+obj.pC.init()
 obj.eC.addEvent("tabletmessage", "modem_message", "tabletmessage")
 obj.eC.addEvent("break", "key_up", "break")
 

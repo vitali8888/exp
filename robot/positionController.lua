@@ -5,6 +5,60 @@ me.correction = {}
 me.validThings = {"toolchest", "lootchest", "charger", "lastaction", "borderfirst", "bordersecond"}
 me.points = {}
 
+function me.init()
+    local sender = require("actions/messageSender")
+    local filesystem = require ("filesystem")
+    local component = require("component")
+    for key,value in pairs(me.validThings) do
+        if (filesystem.exists("reserveData/"..value) == true)
+            then
+             local file = io.open("reserveData/"..value, "r")
+             me.points[value].x = file:read()
+             me.points[value].y = file:read()
+             me.points[value].z = file:read()
+        end
+    end
+
+    if (filesystem.exists("reserveData/correction") == true)
+        then
+        local file = io.open("reserveData/correction", "r")
+        if (component.navigation.address == file:read())
+            then
+            me.correction.x = file:read()
+            me.correction.y = file:read()
+            me.correction.z = file:read()
+            else
+                sender("navigation upgrade has been changed, need to set real position")
+                print("navigation upgrade has been changed, need to set real position")
+        end
+        else
+         sender("need to set real position")
+         print("need to set real position")
+    end
+
+end
+
+function me.clearSavedPositions()
+    local filesystem = require ("filesystem")
+    for key, value in pairs(me.validThings) do
+        filesystem.remove("reserveData/"..value)
+    end
+    me.points = {}
+    print("all saved positions has been deleted")
+end
+
+function me.cSP(name)
+    local filesystem = require("filesystem")
+    if me.validateThing(name) == true then
+        filesystem.remove("reserveData")
+    end
+
+    me.points[name] = nil
+
+    print("saved position "..name.."has been deleted")
+
+end
+
 function me.validateThing(Thing)
     for key, value in pairs(me.validThings) do
         if value == Thing then return true end
@@ -19,10 +73,10 @@ function me.setPosition(pos, Thing)
     if me.checkRange(rp) == false then sender("Error! position is out of range NU") do return end end
     me.points[Thing] = rp
 
-    file = io.open("reserveData/"..Thing, "w+")
-    file:write(tostring(rp.x))
-    file:write(tostring(rp.y))
-    file:write(tostring(rp.z))
+    local file = io.open("reserveData/"..Thing, "w")
+    file:write(tostring(rp.x).."\r\n")
+    file:write(tostring(rp.y).."\r\n")
+    file:write(tostring(rp.z).."\r\n")
     file:close()
 
 end
@@ -38,6 +92,13 @@ function me.setRealPosition(pos)
     me.correction.x = pos.x - rp.x
     me.correction.y = pos.y - rp.y
     me.correction.z = pos.z - rp.z
+
+    local file = io.open("reserveData/correction, "w")
+    file:write(component.navigation.address)
+    file:write(tostring(me.correction.x))
+    file:write(tostring(me.correction.y))
+    file:write(tostring(me.correction.z))
+    file:close()
 
 end
 

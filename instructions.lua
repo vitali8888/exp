@@ -28,6 +28,7 @@ function me.up()
     osmkdir("robot/eventHandler")
     osmkdir("robot/class")
     osmkdir("robot/actions")
+    osmkdir("robot/reserveData")
 
 
     print ("getting and moooving data")
@@ -57,6 +58,7 @@ function me.up()
     osmv("here.lua", "robot/command/here.lua")
     osmv("setposition.lua", "robot/command/setposition.lua")
     osmv("test.lua", "robot/command/test.lua")
+    osmv("clearsavedpositions.lua", "robot/command/clearsavedpositions.lua")
 
     print("deleting data")
 
