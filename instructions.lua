@@ -52,6 +52,8 @@ function me.up()
     osmv("positionController.lua", "robot/positionController.lua")
     osmv("setrealposition.lua", "robot/command/setrealposition.lua")
     osmv("getposition.lua", "robot/command/getposition.lua")
+    osmv("moveto.lua", "robot/command/moveto.lua")
+    osmv("moveController.lua", "robot/moveController.lua")
 
     print("deleting data")
 
