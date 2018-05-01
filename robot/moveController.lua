@@ -23,9 +23,9 @@ function me.moveTo(pos) --table (pos.x, pos.y, pos.z) relative position
 
     repeat
         currentPos = obj.pC.getRelativePosition()
-        me.moveY()
-        me.moveX()
-        me.moveZ()
+        me.moveY(nil)
+        me.moveX(nil)
+        me.moveZ(nil)
         newCurrentPos = obj.pC.getRelativePosition()
 
         if (currentPos.x == newCurrentPos.x and currentPos.y == newCurrentPos.y and currentPos.z == newCurrentPos.z)
@@ -77,7 +77,7 @@ function me.checkRange(pos) --table relative position
     end
 end
 
-function me.moveY(Y = nil)
+function me.moveY(Y)
     local currentPos = {}
     currentPos = obj.pC.getRelativePosition()
     if (Y == nil) then Y = me.goal.y - currentPos.y end
@@ -97,7 +97,7 @@ function me.moveY(Y = nil)
 
 end
 
-function me.moveX(X = nil)
+function me.moveX(X)
     local currentPos = {}
     currentPos = obj.pC.getRelativePosition()
     if (X == nil) then X = me.goal.x - currentPos.x end
@@ -122,7 +122,7 @@ function me.moveX(X = nil)
 
 end
 
-function me.moveZ(Z = nil)
+function me.moveZ(Z)
     local currentPos = {}
     currentPos = obj.pC.getRelativePosition()
     if (Z == nil) then Z = me.goal.z - currentPos.z end
