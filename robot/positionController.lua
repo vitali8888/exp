@@ -1,16 +1,18 @@
 local me = {}
 
-me.correction = {}
+local shell = require("shell")
 
+me.correction = {}
 me.validThings = {"toolchest", "lootchest", "charger", "lastaction", "borderfirst", "bordersecond"}
 me.points = {}
+me.wD = shell.getWorkingDirectory()
 
 function me.init()
     local sender = require("actions/messageSender")
     local filesystem = require ("filesystem")
     local component = require("component")
     for key,value in pairs(me.validThings) do
-        if (filesystem.exists("reserveData/"..value) == true)
+        if (filesystem.exists(me.wD.."/reserveData/"..value) == true)
             then
              local file = io.open("reserveData/"..value, "r")
              me.points[value].x = file:read()
@@ -19,7 +21,7 @@ function me.init()
         end
     end
 
-    if (filesystem.exists("reserveData/correction") == true)
+    if (filesystem.exists(me.wD.."/reserveData/correction") == true)
         then
         local file = io.open("reserveData/correction", "r")
         if (component.navigation.address == file:read())
@@ -41,7 +43,7 @@ end
 function me.clearSavedPositions()
     local filesystem = require ("filesystem")
     for key, value in pairs(me.validThings) do
-        filesystem.remove("reserveData/"..value)
+        filesystem.remove(me.wD.."/reserveData/"..value)
     end
     me.points = {}
     print("all saved positions has been deleted")
@@ -50,12 +52,14 @@ end
 function me.cSP(name)
     local filesystem = require("filesystem")
     if me.validateThing(name) == true then
-        filesystem.remove("reserveData")
+        filesystem.remove(me.wD.."/reserveData/"..name)
+        print("saved position "..name.."has been deleted")
+        me.points[name] = nil
     end
 
-    me.points[name] = nil
 
-    print("saved position "..name.."has been deleted")
+
+
 
 end
 
@@ -94,7 +98,7 @@ function me.setRealPosition(pos)
     me.correction.z = pos.z - rp.z
 
     local file = io.open("reserveData/correction", "w")
-    file:write(component.navigation.address)
+    file:write(component.navigation.address.."\r\n")
     file:write(tostring(me.correction.x).."\r\n")
     file:write(tostring(me.correction.y).."\r\n")
     file:write(tostring(me.correction.z).."\r\n")
