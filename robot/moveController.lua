@@ -8,7 +8,7 @@ obj = class.new()
 
 function me.moveTo(pos) --table (pos.x, pos.y, pos.z) relative position
     me.goal = pos
-    if (me.checkRange() == false)
+    if (me.checkRange(pos) == false)
         then
             sender("Error! goal for move is out of range!")
             do return end
@@ -24,7 +24,7 @@ function me.moveTo(pos) --table (pos.x, pos.y, pos.z) relative position
         me.moveZ()
         newCurrentPos = obj.pC.getRelativePosition()
 
-        if (currentPos.x = newCurrentPos.x and currentPos.y = newCurrentPos.y and currentPos.z = newCurrentPos.z)
+        if (currentPos.x == newCurrentPos.x and currentPos.y == newCurrentPos.y and currentPos.z == newCurrentPos.z)
             then
                 sender("Error! robot stuck")
                 break
@@ -37,14 +37,11 @@ end
 function me.checkGoal()
     local pos = obj.pC.getRelativePosition()
 
-    if (pos.x = me.goal.x and pos.y = me.goal.y and pos.z = me.goal.z)
+    if (pos.x == me.goal.x and pos.y == me.goal.y and pos.z == me.goal.z)
         then
             return true
         end
-    else
-        then
-            return false
-        end
+    return false
 end
 
 function me.checkRange(pos) --table relative position
@@ -55,7 +52,7 @@ function me.checkRange(pos) --table relative position
     for key, value in pairs(pos) do
         if (value > positive or value < negative)
             then return false end
-        else then return true end
+        return true
     end
 end
 
@@ -65,14 +62,13 @@ function me.moveY()
     local Y = me.goal.y - currentPos.y
 
     if (Y > 0) then
-        for i=0, Y do
-        robot.up()
+        for i=1, Y do
+        if robot.up() == false then return true end
         end
-    end
     elseif (Y < 0) then
         Y = 0 - Y
-        for i=0, Y do
-        robot.down()
+        for i=1, Y do
+        if robot.down() == false then return true end
         end
     end
 
@@ -87,16 +83,17 @@ function me.moveX()
         then
             repeat
                 robot.turnRight()
-            until obj.pC.getFacing == 5
+            until obj.pC.getFacing() == 5
         end
 
     if (X < 0)
         then
         robot.turnAround()
+        X = 0 - X
         end
 
-    for i=0, X do
-        robot.forward()
+    for i=1, X do
+        if robot.forward() == false then return true end
     end
 
 end
@@ -110,16 +107,17 @@ function me.moveZ()
         then
             repeat
                 robot.turnRight()
-            until obj.pC.getFacing == 3
+            until obj.pC.getFacing() == 3
         end
 
     if (Z < 0)
         then
         robot.turnAround()
+        Z = 0 - Z
         end
 
-    for i=0, X do
-        robot.forward()
+    for i=1, X do
+        if robot.forward() == false then return true end
     end
 end
 

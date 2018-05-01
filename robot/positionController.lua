@@ -58,7 +58,7 @@ function me.positionToRelative(pos) --transform real position to relative (table
     local rp = {}
     rp.x = pos.x - me.correction.x
     rp.y = pos.y - me.correction.y
-    rp.z = pos.z - me.coorection.z
+    rp.z = pos.z - me.correction.z
 
     return rp
 end
