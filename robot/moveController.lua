@@ -58,20 +58,17 @@ end
 
 function me.moveY()
     local currentPos = {}
-    local check
     currentPos = obj.pC.getRelativePosition()
     local Y = me.goal.y - currentPos.y
 
     if (Y > 0) then
         for i=1, Y do
-        check = robot.up()
-        if check == false then return true end
+        if robot.up() == false then return true end
         end
     elseif (Y < 0) then
         Y = 0 - Y
         for i=1, Y do
-        check = robot.down()
-        if check == false then return true end
+        if robot.down() == false then return true end
         end
     end
 
@@ -79,7 +76,6 @@ end
 
 function me.moveX()
     local currentPos = {}
-    local check
     currentPos = obj.pC.getRelativePosition()
     local X = me.goal.x - currentPos.x
 
@@ -97,15 +93,13 @@ function me.moveX()
         end
 
     for i=1, X do
-        check = robot.forward()
-        if check == false then return true end
+        if robot.forward() == false then return true end
     end
 
 end
 
 function me.moveZ()
     local currentPos = {}
-    local check
     currentPos = obj.pC.getRelativePosition()
     local Z = me.goal.z - currentPos.z
 
@@ -122,9 +116,8 @@ function me.moveZ()
         Z = 0 - Z
         end
 
-    for i=1, X do
-        check = robot.forward()
-        if check == false then return true end
+    for i=1, Z do
+        if robot.forward() == false then return true end
     end
 end
 
