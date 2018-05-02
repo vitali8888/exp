@@ -127,6 +127,8 @@ function me.reCalcWZ() --moving coords of working zone points for correctly usin
 
     local sender = require("actions/messageSender")
 
+    if (me.points.wzstart ~= nil and me.points.wzend ~= nil)
+        then
         me.points.borderfirst = {}
         me.points.bordersecond = {}
         me.points.borderfirst.x, me.points.bordersecond.x = me.minMax(me.points.wzstart.x, me.points.wzend.x)
