@@ -7,6 +7,15 @@ me.validThings = {"toolchest", "lootchest", "charger", "lastaction", "borderfirs
 me.points = {}
 me.wD = shell.getWorkingDirectory()
 
+function me.test(pos, comment)
+    local sender = require("actions/messageSender")
+    sender(comment)
+    sender("x: "..tostring(pos.x))
+    sender("y: "..tostring(pos.y))
+    sender("z: "..tostring(pos.z))
+    sender("---")
+end
+
 function me.init()
     local sender = require("actions/messageSender")
     local filesystem = require ("filesystem")
@@ -120,11 +129,16 @@ function me.reCalcWZ() --moving coords of working zone points for correctly usin
 
     if (me.points.wzstart ~= nil and me.points.wzend ~= nil)
         then
+me.test(me.points.wzstart, "wzstart")
+me.test(me.points.wzend, "wzend")
+me.test(me.points.borderfirst, "bf before")
+me.test(me.points.bordersecond, "bs before")
 
         me.points.borderfirst.x, me.points.bordersecond.x = me.minMax(me.points.wzstart.x, me.points.wzend.x)
         me.points.borderfirst.y, me.points.bordersecond.y = me.minMax(me.points.wzstart.y, me.points.wzend.y)
         me.points.borderfirst.z, me.points.bordersecond.z = me.minMax(me.points.wzstart.z, me.points.wzend.z)
-
+me.test(me.points.borderfirts, "bd after")
+me.test(me.points.bordersecond, "bs after")
         local file = io.open("reserveData/borderfirst", "w")
         file:write(tostring(me.points.borderfirst.x).."\r\n")
         file:write(tostring(me.points.borderfirst.y).."\r\n")
