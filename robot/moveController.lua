@@ -74,14 +74,24 @@ function me.moveY(Y)
     if (Y == 0) then return true end
 
     if (Y > 0) then
-        for i=1, Y do
-        if robot.up() == nil then return true end
-        end
-    elseif (Y < 0) then
+            for i=1, Y do
+                if robot.up() == nil then
+                        if (obj.mission.barrier("up")) then
+                            do return end
+                        end
+
+                end
+            end
+    elseif (Y < 0)
         Y = 0 - Y
         for i=1, Y do
-        if robot.down() == nil then return true end
+            if robot.down() == nil then
+                if (obj.mission.barrier("down")) then
+                     do return end
+                end
+            end
         end
+
     end
 
 end
@@ -106,7 +116,11 @@ function me.moveX(X)
         end
 
     for i=1, X do
-        if robot.forward() == nil then return true end
+        if robot.forward() == nil then
+            if (obj.mission.barrier("straight")) then
+                do return end
+            end
+        end
     end
 
 end

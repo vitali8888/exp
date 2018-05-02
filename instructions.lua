@@ -29,6 +29,7 @@ function me.up()
     osmkdir("robot/class")
     osmkdir("robot/actions")
     osmkdir("robot/reserveData")
+    osmkdir("robot/missions")
 
 
     print ("getting and moooving data")
@@ -62,6 +63,9 @@ function me.up()
     osmv("isworkingzone.lua", "robot/command/isworkingzone.lua")
     osmv("setworkingzone.lua", "robot/command/setworkingzone.lua")
     osmv("recalcworkingzone.lua", "robot/command/recalcworkingzone.lua")
+    osmv("digAll.lua", "robot/missions/digAll.lua")
+    osmv("waitingForOrder.lua", "robot/missions/waitingForOrder.lua")
+    osmv("mission.lua", "robot/command/mission.lua")
 
     print("deleting data")
 

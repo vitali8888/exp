@@ -11,6 +11,8 @@ local eventController = require ("eventController")
 local positionController = require ("positionController")
 local moveController = require ("moveController")
 local class = require ("class/singleton")
+local mission = require ("missions/waitingForOrder")
+
 obj = class.new()
 obj.eC = eventController
 obj.pC = positionController
@@ -19,6 +21,8 @@ obj.mC = moveController
 obj.pC.init()
 obj.eC.addEvent("tabletmessage", "modem_message", "tabletmessage")
 obj.eC.addEvent("break", "key_up", "break")
+obj.mission = mission
+
 
 print("robot active")
 
