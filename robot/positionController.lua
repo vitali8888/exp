@@ -127,23 +127,12 @@ function me.reCalcWZ() --moving coords of working zone points for correctly usin
 
     local sender = require("actions/messageSender")
 
-    if (me.points.wzstart ~= nil and me.points.wzend ~= nil)
-        then
-me.test(me.points.wzstart, "wzstart")
-me.test(me.points.wzend, "wzend")
-if (me.points.borderfirst ~= nil and me.points.bordersecond ~= nil)
-    then
-me.test(me.points.borderfirst, "bf before")
-me.test(me.points.bordersecond, "bs before")
-end
-
         me.points.borderfirst = {}
         me.points.bordersecond = {}
         me.points.borderfirst.x, me.points.bordersecond.x = me.minMax(me.points.wzstart.x, me.points.wzend.x)
         me.points.borderfirst.y, me.points.bordersecond.y = me.minMax(me.points.wzstart.y, me.points.wzend.y)
         me.points.borderfirst.z, me.points.bordersecond.z = me.minMax(me.points.wzstart.z, me.points.wzend.z)
-me.test(me.points.borderfirts, "bd after")
-me.test(me.points.bordersecond, "bs after")
+
         local file = io.open("reserveData/borderfirst", "w")
         file:write(tostring(me.points.borderfirst.x).."\r\n")
         file:write(tostring(me.points.borderfirst.y).."\r\n")
@@ -156,6 +145,13 @@ me.test(me.points.bordersecond, "bs after")
         file:write(tostring(me.points.bordersecond.z).."\r\n")
         file:close()
 
+        sender("working zone borders:")
+        local posone = me.positionToAbsolute(me.points.borderfirst)
+        local postwo = me.positionToAbsolute(me.points.bordersecond)
+        sender("X from: "..posone.x .. "to: ".. postwo.x)
+        sender("Y from: "..posone.y .. "to: ".. postwo.y)
+        sender("Z from: "..posone.z .. "to: ".. postwo.z)
+        sender("border includes to wz")
         sender("working zone ready, volume: " .. me.getVolume(me.points.borderfirst, me.points.bordersecond))
 
         else
@@ -270,6 +266,20 @@ function me.positionToRelative(pos) --transform real position to relative (table
     rp.z = pos.z - me.correction.z
 
     return rp
+end
+
+function me.positionToAbsolute(pos) --transform relative position to real(absolute)
+
+    local sender = require ("actions/messageSender")
+    if (me.correction.x == nil or me.correction.y == nil or me.correction.z == nil) then sender("Error! need to correct position!") do return end end
+    if (pos.x == nil or pos.y == nil or pos.z == nil) then sender("Error! there is no real position!") do return end end
+
+    local ap = {}
+    ap.x = pos.x + me.correction.x
+    ap.y = pos.y + me.correction.y
+    ap.z = pos.z + me.correction.z
+
+    return ap
 end
 
 function me.checkRange(pos) --table relative position
