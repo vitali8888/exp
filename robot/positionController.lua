@@ -108,6 +108,76 @@ function me.setRealPosition(pos)
 
 end
 
+function me.setWorkingZone(posF, posS) --absolute posistions, table values
+    local sender = require ("actions/messageSender")
+    if (posF.x == nil or posF.y == nil or posF.z == nil) then sender("Error! invalid position!") do return end end
+    if (posS.x == nil or posS.y == nil or posS.z == nil) then sender("Error! invalid position!") do return end end
+
+    local rPosF = me.positionToRelative(posF)
+    local rPosS = me.positionToRelative(posS)
+
+    if (me.checkRange(rPosF) == false or me.checkRange(rPosS) == false)
+        then
+        sender("Error! Working Zone is out of NU range!")
+        do return end
+    end
+
+    me.points.borderfirst = rPosF
+    me.points.bordersecond = rPosS
+
+    me.points.borderfirst.x, me.points.bordersecond.x = me.minMax(me.points.borderfirst.x, me.points.bordersecond.x)
+    me.points.borderfirst.y, me.points.bordersecond.y = me.minMax(me.points.borderfirst.y, me.points.bordersecond.y)
+    me.points.borderfirst.z, me.points.bordersecond.z = me.minMax(me.points.borderfirst.z, me.points.bordersecond.z)
+
+    local file = io.open("reserveData/borderfirst", "w")
+    file:write(tostring(me.points.borderfirst.x).."\r\n")
+    file:write(tostring(me.points.borderfirst.y).."\r\n")
+    file:write(tostring(me.points.borderfirst.z).."\r\n")
+    file:close()
+
+    local file = io.open("reserveData/bordersecond", "w")
+    file:write(tostring(me.points.bordersecond.x).."\r\n")
+    file:write(tostring(me.points.bordersecond.y).."\r\n")
+    file:write(tostring(me.points.bordersecond.z).."\r\n")
+    file:close()
+
+
+    --some checking...
+
+    if (me.points.charger ~= nill) then
+        if (me.isWorkingZone(me.points.charger) == true) then
+            sender("Warning!!! charger is in working zone!")
+        end
+    end
+    if (me.points.lootchest ~= nill) then
+            if (me.isWorkingZone(me.points.lootchest) == true) then
+                sender("Warning!!! lootchest is in working zone!")
+            end
+    end
+    if (me.points.toolchest ~= nill) then
+            if (me.isWorkingZone(me.points.toolchest) == true) then
+                sender("Warning!!! toolchest is in working zone!")
+            end
+    end
+
+end
+
+function me.isWorkingZone(pos) --relative position, table
+    for key,value in pairs(pos) do
+        if (value < me.points.borderfirst[key] or value > me.points.bordersecond[key]) then return false end
+    end
+    return true
+end
+
+function me.minMax(the, other) --number
+    if (the > other)
+        then
+        return other, the
+        else
+        return the, other
+    end
+end
+
 function me.getRelativePosition()
     local component = require ("component")
     local x, y, z, str = component.navigation.getPosition()
