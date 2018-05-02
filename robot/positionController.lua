@@ -3,7 +3,7 @@ local me = {}
 local shell = require("shell")
 
 me.correction = {}
-me.validThings = {"toolchest", "lootchest", "charger", "lastaction", "borderfirst", "bordersecond"}
+me.validThings = {"toolchest", "lootchest", "charger", "lastaction", "borderfirst", "bordersecond", "wzstart", "wzend"}
 me.points = {}
 me.wD = shell.getWorkingDirectory()
 
@@ -72,7 +72,7 @@ function me.validateThing(Thing)
     return false
 end
 
-function me.setPosition(pos, Thing)
+function me.setPosition(pos, Thing) --absolute position
     local sender = require ("actions/messageSender")
     if me.validateThing == false then sender("Error! invalid name of point for set position") do return end end
     local rp = me.positionToRelative(pos)
@@ -118,12 +118,12 @@ function me.reCalcWZ() --moving coords of working zone points for correctly usin
 
     local sender = require("actions/messageSender")
 
-    if (me.points.borderfirst ~= nil and me.points.bordersecond ~= nil)
+    if (me.points.wzstart ~= nil and me.points.wzend ~= nil)
         then
 
-        me.points.borderfirst.x, me.points.bordersecond.x = me.minMax(me.points.borderfirst.x, me.points.bordersecond.x)
-        me.points.borderfirst.y, me.points.bordersecond.y = me.minMax(me.points.borderfirst.y, me.points.bordersecond.y)
-        me.points.borderfirst.z, me.points.bordersecond.z = me.minMax(me.points.borderfirst.z, me.points.bordersecond.z)
+        me.points.borderfirst.x, me.points.bordersecond.x = me.minMax(me.points.wzstart.x, me.points.wzend.x)
+        me.points.borderfirst.y, me.points.bordersecond.y = me.minMax(me.points.wzstart.y, me.points.wzend.y)
+        me.points.borderfirst.z, me.points.bordersecond.z = me.minMax(me.points.wzstart.z, me.points.wzend.z)
 
         local file = io.open("reserveData/borderfirst", "w")
         file:write(tostring(me.points.borderfirst.x).."\r\n")
@@ -159,8 +159,8 @@ function me.setWorkingZone(posF, posS) --absolute posistions, table values
         do return end
     end
 
-    me.points.borderfirst = rPosF
-    me.points.bordersecond = rPosS
+    me.points.wzstart = rPosF
+    me.points.wzend = rPosS
 
     me.reCalcWZ()
 
