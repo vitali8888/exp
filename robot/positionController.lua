@@ -137,6 +137,8 @@ me.test(me.points.borderfirst, "bf before")
 me.test(me.points.bordersecond, "bs before")
 end
 
+        me.points.borderfirst = {}
+        me.points.bordersecond = {}
         me.points.borderfirst.x, me.points.bordersecond.x = me.minMax(me.points.wzstart.x, me.points.wzend.x)
         me.points.borderfirst.y, me.points.bordersecond.y = me.minMax(me.points.wzstart.y, me.points.wzend.y)
         me.points.borderfirst.z, me.points.bordersecond.z = me.minMax(me.points.wzstart.z, me.points.wzend.z)
@@ -203,6 +205,11 @@ function me.setWorkingZone(posF, posS) --absolute posistions, table values
 end
 
 function me.isWorkingZone(pos) --relative position, table
+    if (me.points.borderfirst == nil or me.points.bordersecond == nil) then
+        local sender = require ("actions/messageSender")
+        sender("Error! need setup working zone borders or recalc them")
+        return false
+    end
     for key,value in pairs(pos) do
         if (value < me.points.borderfirst[key] or value > me.points.bordersecond[key]) then return false end
     end
