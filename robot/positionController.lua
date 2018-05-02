@@ -109,7 +109,8 @@ function me.setRealPosition(pos)
 end
 
 function me.getVolume(pointone, pointtwo)
-    local v = (pointtwo.x - pointone.x + 1)*(pointtwo.y - pointone.y + 1)*(pointtwo.z - pointone.z + 1)
+    local math = require("math")
+    local v = (math.abs(pointtwo.x - pointone.x)+1)*(math.abs(pointtwo.y - pointone.y)+1)*(math.abs(pointtwo.z - pointone.z)+1)
     return v
 end
 
