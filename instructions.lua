@@ -61,6 +61,7 @@ function me.up()
     osmv("clearsavedpositions.lua", "robot/command/clearsavedpositions.lua")
     osmv("isworkingzone.lua", "robot/command/isworkingzone.lua")
     osmv("setworkingzone.lua", "robot/command/setworkingzone.lua")
+    osmv("recalcworkingzone.lua", "robot/command/recalcworkingzone.lua")
 
     print("deleting data")
 

@@ -108,6 +108,42 @@ function me.setRealPosition(pos)
 
 end
 
+function me.getVolume(pointone, pointtwo)
+    local v = (pointtwo.x - pointone.x)*(pointtwo.y - pointone.y)*(pointtwo.z - pointone.z)
+    return v
+end
+
+function me.reCalcWZ() --moving coords of working zone points for correctly using them
+
+    local sender = require("actions/messageSender")
+
+    if (me.points.borderfirst ~= nil and me.points.bordersecond ~= nil)
+        then
+
+        me.points.borderfirst.x, me.points.bordersecond.x = me.minMax(me.points.borderfirst.x, me.points.bordersecond.x)
+        me.points.borderfirst.y, me.points.bordersecond.y = me.minMax(me.points.borderfirst.y, me.points.bordersecond.y)
+        me.points.borderfirst.z, me.points.bordersecond.z = me.minMax(me.points.borderfirst.z, me.points.bordersecond.z)
+
+        local file = io.open("reserveData/borderfirst", "w")
+        file:write(tostring(me.points.borderfirst.x).."\r\n")
+        file:write(tostring(me.points.borderfirst.y).."\r\n")
+        file:write(tostring(me.points.borderfirst.z).."\r\n")
+        file:close()
+
+        local file = io.open("reserveData/bordersecond", "w")
+        file:write(tostring(me.points.bordersecond.x).."\r\n")
+        file:write(tostring(me.points.bordersecond.y).."\r\n")
+        file:write(tostring(me.points.bordersecond.z).."\r\n")
+        file:close()
+
+        sender("working zone ready, volume: " .. me.getVolume(me.points.borderfirst, me.points.bordersecond))
+
+        else
+        sender("nothing to recalc")
+    end
+
+end
+
 function me.setWorkingZone(posF, posS) --absolute posistions, table values
     local sender = require ("actions/messageSender")
     if (posF.x == nil or posF.y == nil or posF.z == nil) then sender("Error! invalid position!") do return end end
@@ -125,21 +161,7 @@ function me.setWorkingZone(posF, posS) --absolute posistions, table values
     me.points.borderfirst = rPosF
     me.points.bordersecond = rPosS
 
-    me.points.borderfirst.x, me.points.bordersecond.x = me.minMax(me.points.borderfirst.x, me.points.bordersecond.x)
-    me.points.borderfirst.y, me.points.bordersecond.y = me.minMax(me.points.borderfirst.y, me.points.bordersecond.y)
-    me.points.borderfirst.z, me.points.bordersecond.z = me.minMax(me.points.borderfirst.z, me.points.bordersecond.z)
-
-    local file = io.open("reserveData/borderfirst", "w")
-    file:write(tostring(me.points.borderfirst.x).."\r\n")
-    file:write(tostring(me.points.borderfirst.y).."\r\n")
-    file:write(tostring(me.points.borderfirst.z).."\r\n")
-    file:close()
-
-    local file = io.open("reserveData/bordersecond", "w")
-    file:write(tostring(me.points.bordersecond.x).."\r\n")
-    file:write(tostring(me.points.bordersecond.y).."\r\n")
-    file:write(tostring(me.points.bordersecond.z).."\r\n")
-    file:close()
+    me.reCalcWZ()
 
 
     --some checking...
