@@ -131,8 +131,11 @@ function me.reCalcWZ() --moving coords of working zone points for correctly usin
         then
 me.test(me.points.wzstart, "wzstart")
 me.test(me.points.wzend, "wzend")
+if (me.points.borderfirst ~= nil and me.points.bordersecond ~= nil)
+    then
 me.test(me.points.borderfirst, "bf before")
 me.test(me.points.bordersecond, "bs before")
+end
 
         me.points.borderfirst.x, me.points.bordersecond.x = me.minMax(me.points.wzstart.x, me.points.wzend.x)
         me.points.borderfirst.y, me.points.bordersecond.y = me.minMax(me.points.wzstart.y, me.points.wzend.y)
