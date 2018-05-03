@@ -25,9 +25,9 @@ function me.init()
             then
              local file = io.open("reserveData/"..value, "r")
              local pos = {}
-             pos.x = file:read()
-             pos.y = file:read()
-             pos.z = file:read()
+             pos.x = tonumber(file:read())
+             pos.y = tonumber(file:read())
+             pos.z = tonumber(file:read())
              me.points[value] = pos
         end
     end
@@ -37,9 +37,9 @@ function me.init()
         local file = io.open("reserveData/correction", "r")
         if (component.navigation.address == file:read())
             then
-            me.correction.x = file:read()
-            me.correction.y = file:read()
-            me.correction.z = file:read()
+            me.correction.x = tonumber(file:read())
+            me.correction.y = tonumber(file:read())
+            me.correction.z = tonumber(file:read())
             else
                 sender("navigation upgrade has been changed, need to set real position")
                 print("navigation upgrade has been changed, need to set real position")
