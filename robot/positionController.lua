@@ -20,11 +20,11 @@ function me.init()
     local sender = require("actions/messageSender")
     local filesystem = require ("filesystem")
     local component = require("component")
-    local pos = {}
     for key,value in pairs(me.validThings) do
         if (filesystem.exists(me.wD.."/reserveData/"..value) == true)
             then
              local file = io.open("reserveData/"..value, "r")
+             local pos = {}
              pos.x = file:read()
              pos.y = file:read()
              pos.z = file:read()
