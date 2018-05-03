@@ -61,7 +61,7 @@ function mission.barrierGateStraight()
 end
 
 function mission.posAcToFacing(pos)
-    local facing = robot.getFacing()
+    local facing = obj.pC.getFacing()
 
     if (facing == 2)
         then
