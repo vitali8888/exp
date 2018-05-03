@@ -49,7 +49,7 @@ end
 
 function obj.dropTimer(name)
 
-    if (obj.times[name] ~= nil) then
+    if (obj.timers[name] ~= nil) then
         event.cancel(obj.timers[name].id)
         obj.timers[name] = nil
     end
