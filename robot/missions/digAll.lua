@@ -80,6 +80,35 @@ function mission.posAcToFacing(pos)
     print("unbelivable error! unreal facing!")
 end
 
+function mission.saveCondition()
+    local class = require ("class/singleton")
+    obj = class.new()
+    obj.pC.setPosition(obj.pC.getPosition(), "lastaction")
+end
+
+function mission.fail()
+    return true
+end
+
+function mission.afterCharge()
+    return true
+end
+
+function mission.restoreCondition()
+    local class = require ("class/singleton")
+    obj = class.new()
+    obj.mC.moveTo(obj.pC.points.lastaction)
+end
+
+function mission.start()
+    local eac = require("actions/enableAutoCharge")
+    local sender = require("actions/messageSender")
+    if (eac()) then
+        sender ("autocharging enabled, please dont disable it before mission ends")
+    end
+
+end
+
 
 
 return mission

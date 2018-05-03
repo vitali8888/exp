@@ -1,4 +1,4 @@
-local function me(_, _, from, port, _, message)
+return function(_, _, from, port, _, message)
 
     local strmes = tostring(message)
     local message = {}
@@ -12,4 +12,4 @@ local function me(_, _, from, port, _, message)
     command(message)
     end
 
-return me
+end

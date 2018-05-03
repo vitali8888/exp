@@ -66,6 +66,10 @@ function me.up()
     osmv("digAll.lua", "robot/missions/digAll.lua")
     osmv("waitingForOrder.lua", "robot/missions/waitingForOrder.lua")
     osmv("mission.lua", "robot/command/mission.lua")
+    osmv("autocharge.lua", "robot/eventHandler/autocharge.lua")
+    osmw("chargingmessage.lua", "robot/eventHandler/chargingmessage.lua")
+    osmw("autocharge.lua", "robot/command/autocharge.lua")
+    osmw("enableAutoCharge.lua", "robot/actions/enableAutoCharge.lua")
 
     print("deleting data")
 

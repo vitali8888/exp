@@ -2,8 +2,13 @@
 
 local mission = {}
 
+
 function mission.barrier(direction)
-end
+function mission.saveCondition()
+function mission.fail()
+function mission.afterCharge()
+function mission.restoreCondition()
+function mission.start()
 
 
 
