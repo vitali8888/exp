@@ -38,7 +38,8 @@ end
 function obj.addTimer(name, interval, handler)
 
     local eventHandler = require ("eventHandler/"..handler)
-    local id = event.timer(interval, eventHandler)
+    local math = require ("math")
+    local id = event.timer(interval, eventHandler, math.huge)
     obj.timers[name]={}
     obj.timers[name].id = id
     obj.timers[name].interval = interval

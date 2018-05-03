@@ -45,7 +45,4 @@ if (curEn < minEn) then
 
 end
 
-obj.eC.addTimer("autocharge", 15, "autocharge")
-
-
 end
