@@ -70,6 +70,7 @@ function me.up()
     osmv("chargingmessage.lua", "robot/eventHandler/chargingmessage.lua")
     osmv("autocharge.lua", "robot/command/autocharge.lua")
     osmv("enableAutoCharge.lua", "robot/actions/enableAutoCharge.lua")
+    osmv("startmission.lua", "robot/command/startmission.lua")
 
     print("deleting data")
 
