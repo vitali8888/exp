@@ -1,7 +1,7 @@
 return function ()
 
     local class = require("class/singleton")
-    local sender = require("action/messageSender")
+    local sender = require("actions/messageSender")
     obj = class.new()
 
     sender("ok, lets try...")
