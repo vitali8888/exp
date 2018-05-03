@@ -286,14 +286,15 @@ end
 
 function me.checkRange(pos) --table relative position
     local component = require ("component")
-    local positive = component.navigation.getRange()
-    local negative = 0 - positive
+    local range = component.navigation.getRange()
+    local math = require ("math")
 
     for key, value in pairs(pos) do
-        if (value > positive or value < negative)
-            then return false end
-        return true
+        if (tonumber(value) > math.abs(range)) then
+        return false
+        end
     end
+    return true
 end
 
 return me

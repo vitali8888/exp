@@ -42,5 +42,7 @@ if (curEn < minEn) then
     obj.eC.restoreEvents(reserveParams.events)
     obj.mis.restoreCondition()
 
+end
+
 
 end
