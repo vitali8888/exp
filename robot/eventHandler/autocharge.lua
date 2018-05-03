@@ -36,11 +36,11 @@ if (curEn < minEn) then
 
     until computer.energy() / computer.maxEnergy() > 0.99
 
-    obj.mis.afterCharge()
+    mis.afterCharge()
     obj.eC.dropEvent("charging")
     obj.eC.restoreTimers(reserveParams.timers)
     obj.eC.restoreEvents(reserveParams.events)
-    obj.mis.restoreCondition()
+    mis.restoreCondition()
 
 end
 
