@@ -145,7 +145,11 @@ function me.moveZ(Z)
         end
 
     for i=1, Z do
-        if robot.forward() == nil then return true end
+        if robot.forward() == nil then
+                    if (obj.mission.barrier("straight")) then
+                        do return end
+                    end
+        end
     end
 end
 

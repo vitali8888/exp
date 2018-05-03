@@ -8,7 +8,9 @@ local test = obj.pC.points
 
 for key, value in pairs(test) do
     print(key)
-    print(value)
+    for key, value2 in pairs(value) do
+    print (key.."--"..value2)
+    end
 end
 
 
