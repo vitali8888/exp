@@ -20,7 +20,7 @@ end
 function obj.dropEvent(name)
 
     if (obj.events[name] ~= nil) then
-        event.ignore(events[name].signal, events[name].handler)
+        event.ignore(obj.events[name].signal, obj.events[name].handler)
         obj.events[name] = nil
     end
 

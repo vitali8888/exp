@@ -3,12 +3,13 @@ return function()
 local computer = require("computer")
 local minEn = 0.93 --minimum energy level before charging needs
 local curEn = computer.energy() / computer.maxEnergy()
+local class = require ("class/singleton")
+obj = class.new()
 
 if (curEn < minEn) then
 
     local reserveParams = {}
-    local class = require ("class/singleton")
-    obj = class.new()
+
     local mis = obj.mission
 
     reserveParams.events = obj.eC.events
@@ -43,6 +44,8 @@ if (curEn < minEn) then
     mis.restoreCondition()
 
 end
+
+obj.eC.addTimer("autocharge", 15, "autocharge")
 
 
 end
