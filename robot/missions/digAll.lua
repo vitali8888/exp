@@ -12,9 +12,9 @@ function mission.barrier(direction)
     if (direction == "up")
         then
         return mission.barrierGateUp()
-        elseif (direction == "down")
+        elseif (direction == "down") then
         return mission.barrierGateDown()
-        elseif (direction == "straight")
+        elseif (direction == "straight") then
         return mission.barrierGateStraight()
     end
 end
@@ -67,13 +67,13 @@ function mission.posAcToFacing(pos)
         then
         pos.z = pos.z - 1
         return pos
-        elseif(facing == 3)
+        elseif(facing == 3) then
         pos.z = pos.z + 1
         return pos
-        elseif (facing == 4)
+        elseif (facing == 4) then
         pos.x = pos.x - 1
         return pos
-        elseif (facing == 5)
+        elseif (facing == 5) then
         pos.x = pos.x + 1
         return pos
     end

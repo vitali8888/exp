@@ -150,9 +150,9 @@ function me.reCalcWZ() --moving coords of working zone points for correctly usin
         sender("working zone borders:")
         local posone = me.positionToAbsolute(me.points.borderfirst)
         local postwo = me.positionToAbsolute(me.points.bordersecond)
-        sender("X from: "..posone.x .. "to: ".. postwo.x)
-        sender("Y from: "..posone.y .. "to: ".. postwo.y)
-        sender("Z from: "..posone.z .. "to: ".. postwo.z)
+        sender("X from: "..posone.x .. " to: ".. postwo.x)
+        sender("Y from: "..posone.y .. " to: ".. postwo.y)
+        sender("Z from: "..posone.z .. " to: ".. postwo.z)
         sender("border includes to wz")
         sender("working zone ready, volume: " .. me.getVolume(me.points.borderfirst, me.points.bordersecond))
 

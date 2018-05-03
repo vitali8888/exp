@@ -82,7 +82,7 @@ function me.moveY(Y)
 
                 end
             end
-    elseif (Y < 0)
+    elseif (Y < 0) then
         Y = 0 - Y
         for i=1, Y do
             if robot.down() == nil then
