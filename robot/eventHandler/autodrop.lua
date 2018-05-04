@@ -1,17 +1,21 @@
 return function()
 
 local computer = require("computer")
-local minEn = 0.97 --minimum energy level before charging needs
-local curEn = computer.energy() / computer.maxEnergy()
+local robot = require("robot")
+local selectedSlot = robot.select()
+local size = robot.inventorySize()
+robot.select(size)
+local count = robot.count()
+robot.select(selectedSlot)
 
 
-if (curEn < minEn) then
+if (count > 0) then
 
     local reserveParams = {}
     local class = require ("class/singleton")
-    local charge = require ("actions/charge")
     obj = class.new()
     local mis = obj.mission
+    local dropLoot = require ("actions/dropLoot")
 
     reserveParams.events = obj.eC.events
     reserveParams.timers = obj.eC.timers
@@ -22,11 +26,16 @@ if (curEn < minEn) then
 
 
     mis.saveCondition()
-    obj.mC.moveTo(obj.pC.points.charger)
+    obj.mC.moveTo(obj.pC.points.lootchest)
 
-    charge()
+    if (dropLoot(obj.pC.points.lootchest) ~= true) then
+            sender("Error! mission failed (miss the way to lootchest")
+            mis.fail("drop loot")
+    end
 
-    mis.afterCharge()
+    robot.select(selectedSlot)
+
+    mis.afterDrop()
     obj.eC.dropEvent("charging")
     obj.eC.restoreTimers(reserveParams.timers)
     obj.eC.restoreEvents(reserveParams.events)

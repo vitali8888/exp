@@ -83,7 +83,7 @@ end
 
 function me.setPosition(pos, Thing) --absolute position
     local sender = require ("actions/messageSender")
-    if me.validateThing == false then sender("Error! invalid name of point for set position") do return end end
+    if me.validateThing(Thing) == false then sender("Error! invalid name of point for set position") do return end end
     local rp = me.positionToRelative(pos)
     if me.checkRange(rp) == false then sender("Error! position is out of range NU") do return end end
     me.points[Thing] = rp
@@ -94,6 +94,16 @@ function me.setPosition(pos, Thing) --absolute position
     file:write(tostring(rp.z).."\r\n")
     file:close()
 
+end
+
+function me.unset(Thing)
+    local filesystem = require ("filesystem")
+    if (filesystem.exists(me.wD.."/reserveData/"..Thing)) then
+    filesystem.remove(me.wD.."/reserveData/"..Thing)
+    me.points[Thing] = nil
+    return true
+    else return false
+    end
 end
 
 function me.setRealPosition(pos)
@@ -295,6 +305,13 @@ function me.checkRange(pos) --table relative position
         end
     end
     return true
+end
+
+function me.comparePositions(posone, postwo)
+    if (posone.x == postwo.x and posone.y == postwo.y and posone.z == postwo.z)
+    then return true
+    else return false
+    end
 end
 
 return me

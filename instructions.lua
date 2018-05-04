@@ -71,6 +71,12 @@ function me.up()
     osmv("autocharge.lua", "robot/command/autocharge.lua")
     osmv("enableAutoCharge.lua", "robot/actions/enableAutoCharge.lua")
     osmv("startmission.lua", "robot/command/startmission.lua")
+    osmv("charge.lua", "robot/actions/charge.lua")
+    osmv("dropLoot.lua", "robot/actions/dropLoot.lua")
+    osmv("enableAutoDrop.lua", "robot/actions/enableAutoDrop.lua")
+    osmv("enableAutoEquip.lua", "robot/actions/enableAutoEquip.lua")
+    osmv("autodrop.lua", "robot/eventHandler/autodrop.lua")
+    osmv("autoequip.lua", "robot/eventHandler/autoequip.lua")
 
     print("deleting data")
 

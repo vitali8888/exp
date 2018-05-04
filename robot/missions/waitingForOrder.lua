@@ -28,4 +28,12 @@ function mission.start()
     return true
 end
 
+function mission.afterDrop()
+    return true
+end
+
+function mission.afterEquip()
+    return true
+end
+
 return mission

@@ -5,6 +5,7 @@ local mission = {}
 local class = require ("class/singleton")
 obj = class.new()
 local robot = require("robot")
+local component = require("component")
 
 
 function mission.barrier(direction)
@@ -86,12 +87,50 @@ function mission.saveCondition()
     obj.pC.setPosition(obj.pC.getPosition(), "lastaction")
 end
 
-function mission.fail()
-    return true
+function mission.fail(reason)
+    print(reason)
+    obj.eC.dropTimer("autocharge")
+    obj.eC.dropTimer("autodrop")
+    obj.eC.dropTimer("autoequip")
 end
 
 function mission.afterCharge()
-    return true
+    obj.mC.moveTo(obj.pC.points.lootchest)
+    local dropLoot = require("actions/dropLoot")
+    dropLoot(obj.pC.points.lootchest)
+    local durability = robot.durability()
+    if (durability < 0.1 or durability == nil) then
+        component.inventory_controller.equip()
+        robot.dropDown()
+        obj.mC.moveTo(obj.pC.points.toolchest)
+        robot.suckDown()
+        component.inventory_controller.equip()
+    end
+
+
+end
+
+function mission.afterDrop()
+
+    local durability = robot.durability()
+        if (durability < 0.1 or durability == nil) then
+            component.inventory_controller.equip()
+            robot.dropDown()
+            obj.mC.moveTo(obj.pC.points.toolchest)
+            robot.suckDown()
+            component.inventory_controller.equip()
+        end
+
+    obj.mC.moveTo(obj.pC.points.charger)
+    local charge = require("actions/charge")
+    charge()
+
+end
+
+function mission.afterEquip()
+    obj.mC.moveTo(obj.pC.points.charger)
+    local charge = require("actions/charge")
+    charge()
 end
 
 function mission.restoreCondition()
@@ -101,11 +140,91 @@ function mission.restoreCondition()
 end
 
 function mission.start()
+
     local eac = require("actions/enableAutoCharge")
+    local ead = require("actions/enableAutoDrop")
+    local eae = require("actions/enableAutoEquip")
     local sender = require("actions/messageSender")
+    local component = require("component")
+
     if (eac()) then
         sender ("autocharging enabled, please dont disable it before mission ends")
+        else
+        sender ("Error! mission aborting...")
+        return false
     end
+
+    os.sleep(0.5)
+
+
+    if (obj.pC.points.lootchest == nil) then
+            sender("Error! cant find lootchest")
+            sender("mission failed :(")
+            mission.fail("checking systems fail")
+            return false
+            else
+            sender("lootchest is found..")
+    end
+
+    if (obj.pC.points.toolchest == nil) then
+            sender ("Error! where are the toolchest?!")
+            sender ("mission ends... mb next time? :(")
+            mission.fail("checking systems fail")
+            return false
+            else
+            sender("toolchest is found..")
+    end
+
+
+
+    if (ead()) then
+        sender ("autodrop loot enabled..")
+        else
+        sender ("Error! mission aborting...")
+        mission.fail("checking systems fail")
+        return false
+    end
+
+    os.sleep(0.5)
+
+    if (eae()) then
+        sender ("autoequip tool enabled...")
+        else
+        sender ("Error! mission aborting...")
+        mission.fail("checking systems fail")
+        return false
+    end
+
+    os.sleep(2)
+
+    if (component.isAvailable("inventory_controller") == false) then
+        sender("robot must have inventory controller for this mission")
+        mission.fail("checking systems fail")
+        return false
+    end
+
+    if (obj.pC.points.wzstart == nil or obj.pC.points.wzend == nil) then
+        sender ("Error! pls set working zone!")
+        sender ("Mission aborting...")
+        mission.fail("checking systems fail")
+        return false
+    end
+
+
+
+    os.sleep(1)
+
+    if (obj.pC.unset("lastaction")) then
+        sender ("Cleaning data...")
+        else
+        sender ("Prepearing data...")
+    end
+
+    obj.pC.reCalcWZ()
+    sender("working zone ready, pls dont change it before mission ends!")
+
+    os.sleep(12)
+
 
 end
 
