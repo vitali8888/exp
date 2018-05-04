@@ -4,10 +4,11 @@ local computer = require("computer")
 local robot = require("robot")
 local selectedSlot = robot.select()
 local durability = robot.durability()
+if durability == nil then durability = 0 end
 
 
 
-if (durability < 0.05 or durability == nil) then
+if (durability < 0.05) then
 
     local reserveParams = {}
     local class = require ("class/singleton")

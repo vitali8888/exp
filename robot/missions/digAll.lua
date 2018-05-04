@@ -99,7 +99,8 @@ function mission.afterCharge()
     local dropLoot = require("actions/dropLoot")
     dropLoot(obj.pC.points.lootchest)
     local durability = robot.durability()
-    if (durability < 0.1 or durability == nil) then
+    if durability == nil then durability = 0 end
+    if (durability < 0.1) then
         component.inventory_controller.equip()
         robot.dropDown()
         obj.mC.moveTo(obj.pC.points.toolchest)
@@ -113,7 +114,8 @@ end
 function mission.afterDrop()
 
     local durability = robot.durability()
-        if (durability < 0.1 or durability == nil) then
+    if durability == nil then durability = 0 end
+        if (durability < 0.1) then
             component.inventory_controller.equip()
             robot.dropDown()
             obj.mC.moveTo(obj.pC.points.toolchest)
