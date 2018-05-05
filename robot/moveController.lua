@@ -173,10 +173,9 @@ function me.turnTo(direction) -- xp = x positive...
         return true
     end
 
-    local a = string.sub(direction, 1, 1) == "x" and string.sub(direction, 2, 2) ~= string.sub(me.facings[curFacing], 2, 2,)
-    local b = string.sub(direction, 1, 1) ~= "x" and string.sub(direction, 2, 2) == string.sub(me.facings[curFacing], 2, 2,)
-
-    if  a or b then
+    if  (string.sub(direction, 1, 1) == "x" and string.sub(direction, 2, 2) ~= string.sub(me.facings[curFacing], 2, 2))
+        or (string.sub(direction, 1, 1) ~= "x" and string.sub(direction, 2, 2) == string.sub(me.facings[curFacing], 2, 2))
+        then
         robot.turnLeft()
         else
         robot.turnRight()
