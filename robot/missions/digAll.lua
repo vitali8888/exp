@@ -254,17 +254,29 @@ function mission.start()
     robot.select(1)
     os.sleep(11)
 
+
+    sender("moving to position...")
     obj.mC.moveTo(obj.pC.points.lastaction)
-    obj.mC.turnTo("xp")
-
-    --repeat
 
 
+    repeat
+
+    local direction = mission.IN.getDirection(obj.pC.getRelativePosition)
+    if (direction == "changelayer") then
+        mission.IN.changeLayer(robot.swing, "actionThenMove")
+        direction = mission.IN.getDirection(obj.pC.points.lastaction)
+    end
+    obj.mC.turnTo(direction)
+    
 
 
 
 
-    --until mission.stop == true
+
+
+
+
+    until mission.stop == true
 
 
 

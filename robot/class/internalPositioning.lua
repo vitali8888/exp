@@ -36,11 +36,11 @@ function class.toInternal(pos) --relative coords
     ipos.y = pos.y - class.posFrom.y
     ipos.z = pos.z - class.posFrom.z
 
-    if (ipos.x >= class.zoneWidth or ipos.z >= class.zoneLength or ipos.y >= class.zoneDepth) then
+    if (ipos.x >= class.zoneWidth or ipos.z >= class.zoneLength or ipos.y >= class.zoneDepth + maxHeight) then
         return false, "out of working zone, upper"
     end
 
-    if (ipos.x < 0 or ipos.z < 0 or ipos.y < 0) then
+    if (ipos.x < 0 or ipos.z < 0 or ipos.y + maxHeight < 0) then
             return false, "out of working zone, lower"
     end
 
@@ -61,6 +61,18 @@ function class.getBalance(Depth, maxHeight)
     local float = math.float(Depth/maxHeight)
     local balance = Depth - float
     return balance
+end
+
+function class.getInt(a, b)
+    local math = require("math")
+    local float = math.float(a/b)
+    return float
+end
+
+function class.getDirection(pos) --relative
+    local ipos = class.toInternal(pos)
+
+
 end
 
 function class.getHeight(y, depth, ) -- internal

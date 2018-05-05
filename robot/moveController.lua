@@ -163,7 +163,7 @@ function me.moveToRP(pos)
 end
 
 function me.turnTo(direction) -- xp = x positive...
-    if (direction ~= "xp" or direction ~= "xn" or direction ~= "zp" or direction ~= "zn") then return false end
+    if (direction ~= "xp" and direction ~= "xn" and direction ~= "zp" and direction ~= "zn") then return false end
     local facing = me.directions[direction]
     local curFacing = obj.pC.getFacing()
     if (curFacing == facing) then return true end
@@ -176,9 +176,9 @@ function me.turnTo(direction) -- xp = x positive...
     if  (string.sub(direction, 1, 1) == "x" and string.sub(direction, 2, 2) ~= string.sub(me.facings[curFacing], 2, 2))
         or (string.sub(direction, 1, 1) ~= "x" and string.sub(direction, 2, 2) == string.sub(me.facings[curFacing], 2, 2))
         then
-        robot.turnLeft()
-        else
         robot.turnRight()
+        else
+        robot.turnLeft()
     end
 
     return true
