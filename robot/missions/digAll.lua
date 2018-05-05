@@ -1,11 +1,15 @@
 --following class/missionInterface
 
+--this mission class uses positioning patterns of class internalPositioning
+mission.IN = require ("class/internalPositioning")
 local mission = {}
 
 local class = require ("class/singleton")
 obj = class.new()
 local robot = require("robot")
 local component = require("component")
+mission.name = "digAll"
+local mission.stop = false
 
 
 function mission.barrier(direction)
@@ -82,9 +86,7 @@ function mission.posAcToFacing(pos)
 end
 
 function mission.saveCondition()
-    local class = require ("class/singleton")
-    obj = class.new()
-    obj.pC.setPosition(obj.pC.getPosition(), "lastaction")
+    return true
 end
 
 function mission.fail(reason)
@@ -139,9 +141,23 @@ function mission.afterEquip()
 end
 
 function mission.restoreCondition()
-    local class = require ("class/singleton")
-    obj = class.new()
     obj.mC.moveTo(obj.pC.points.lastaction)
+end
+
+function mission.getProgress()
+ return true
+end
+
+function mission.getName()
+ return mission.name
+end
+
+function mission.close()
+
+    if (obj.pC.point.lastaction ~= nil) then
+        obj.pC.unset(lastaction)
+    end
+    return true
 end
 
 function mission.start()
@@ -218,17 +234,40 @@ function mission.start()
 
 
     os.sleep(1)
+    sender ("init internal navigation...")
+    mission.IN.init(obj.pC.points.borderfirst, obj.pC.points.bordersecond, 3, true)
+    os.sleep(1)
 
-    if (obj.pC.unset("lastaction")) then
-        sender ("Cleaning data...")
+    if (obj.pC.points.lastaction ~= nil) then
+        sender ("restoring data...")
+        obj.pC.setPosition(mission.IN.getStartPosition(obj.pC.points.lastaction), "lastaction")
+
         else
         sender ("Prepearing data...")
+        obj.pC.setPosition(mission.IN.getStartPosition(nil), "lastaction")
+
     end
 
     obj.pC.reCalcWZ()
     sender("working zone ready, pls dont change it before mission ends!")
 
-    os.sleep(12)
+    robot.select(1)
+    os.sleep(11)
+
+    obj.mC.moveTo(obj.pC.points.lastaction)
+    obj.mC.turnTo("xp")
+
+    --repeat
+
+
+
+
+
+
+    --until mission.stop == true
+
+
+
 
 
 end

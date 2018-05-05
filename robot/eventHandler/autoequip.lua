@@ -8,7 +8,7 @@ if durability == nil then durability = 0 end
 
 
 
-if (durability < 0.05) then
+if (durability < 0.04) then
 
     local reserveParams = {}
     local class = require ("class/singleton")

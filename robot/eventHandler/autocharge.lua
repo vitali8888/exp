@@ -1,7 +1,7 @@
 return function()
 
 local computer = require("computer")
-local minEn = 0.97 --minimum energy level before charging needs
+local minEn = 0.16 --minimum energy level before charging needs
 local curEn = computer.energy() / computer.maxEnergy()
 
 

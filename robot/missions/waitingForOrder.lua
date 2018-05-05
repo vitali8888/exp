@@ -1,5 +1,7 @@
 local mission = {}
 
+mission.name = "waitingForOrder"
+
 function mission.barrier(direction)
    return true
 end
@@ -35,5 +37,23 @@ end
 function mission.afterEquip()
     return true
 end
+
+function mission.getProgress()
+ return true
+end
+
+function mission.getName()
+ return mission.name
+end
+
+function mission.close()
+    local class = require("class/singleton")
+    obj = class.new()
+    if (obj.pC.point.lastaction ~= nil) then
+        obj.pC.unset(lastaction)
+    end
+    return true
+end
+
 
 return mission

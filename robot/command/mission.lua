@@ -9,6 +9,8 @@ local wD = shell.getWorkingDirectory()
 if (filesystem.exists(wD.."/missions/"..message[2]..".lua"))
     then
     local mission = require("missions/"..message[2])
+    obj.mission.close()
+    sender("mission "..obj.mission.getName().." closed")
     obj.mission = mission
     sender("...has new mission")
     else

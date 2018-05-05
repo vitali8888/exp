@@ -3,6 +3,16 @@ local me = {}
 me.goal = {}
 me.maxAttempts = 7
 me.range = 15
+me.directions = {}
+me.directions.xp = 5
+me.directions.xn = 4
+me.directions.zp = 3
+me.directions.zn = 2
+me.facings = {}
+me.facings[2] = "zn"
+me.facings[3] = "zp"
+me.facings[4] = "xn"
+me.facings[5] = "xp"
 
 local class = require("class/singleton")
 local sender = require("actions/messageSender")
@@ -102,17 +112,13 @@ function me.moveX(X)
     if (X == nil) then X = me.goal.x - currentPos.x end
 
     if (X == 0) then return true end
-    if (obj.pC.getFacing() ~= 5)
-        then
-            repeat
-                robot.turnRight()
-            until obj.pC.getFacing() == 5
-        end
 
     if (X < 0)
         then
-        robot.turnAround()
+        me.turnTo("xn")
         X = 0 - X
+        else
+        me.turnTo("xp")
         end
 
     for i=1, X do
@@ -131,17 +137,14 @@ function me.moveZ(Z)
     if (Z == nil) then Z = me.goal.z - currentPos.z end
 
     if (Z == 0) then return true end
-    if (obj.pC.getFacing() ~= 3)
-        then
-            repeat
-                robot.turnRight()
-            until obj.pC.getFacing() == 3
-        end
+
 
     if (Z < 0)
         then
-        robot.turnAround()
+        me.turnTo("zn")
         Z = 0 - Z
+        else
+        me.turnTo("zp")
         end
 
     for i=1, Z do
@@ -157,6 +160,28 @@ function me.moveToRP(pos)
     local rp = {}
     rp = obj.pC.positionToRelative(pos)
     me.moveTo(rp)
+end
+
+function me.turnTo(direction) -- xp = x positive...
+    if (direction ~= "xp" or direction ~= "xn" or direction ~= "zp" or direction ~= "zn") then return false end
+    local facing = me.directions[direction]
+    local curFacing = obj.pC.getFacing()
+    if (curFacing == facing) then return true end
+
+    if(string.sub(direction, 1, 1) == string.sub(me.facings[curFacing], 1, 1)) then
+        robot.turnAround()
+        return true
+    end
+
+    if  (string.sub(direction, 1, 1) == "x" and string.sub(direction, 2, 2) ~= string.sub(me.facings[curFacing], 2, 2,))
+        or (string.sub(direction, 1, 1) ~= "x" and string.sub(direction, 2, 2) == string.sub(me.facings[curFacing], 2, 2,))
+        then
+        robot.turnLeft()
+        else
+        robot.turnRight()
+    end
+
+    return true
 end
 
 
