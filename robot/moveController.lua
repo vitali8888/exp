@@ -21,14 +21,18 @@ obj = class.new()
 
 function me.moveTo(pos) --table (pos.x, pos.y, pos.z) relative position
     me.goal = pos
+    local currentPos = {}
+    currentPos = obj.pC.getRelativePosition()
+    if (obj.pC.comparePositions(pos, currentPos)) then return true end
+
+
     if (obj.pC.checkRange(pos) == false)
         then
             sender("Error! goal for move is out of range!")
             do return end
-        end
+    end
 
-    local currentPos = {}
-    currentPos = obj.pC.getRelativePosition()
+
     local attempt = 0
 
     repeat

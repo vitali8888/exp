@@ -22,7 +22,9 @@ if (curEn < minEn) then
 
 
     mis.saveCondition()
-    obj.mC.moveTo(obj.pC.points.charger)
+        repeat
+        obj.mC.moveTo(obj.pC.points.charger)
+        until obj.pC.comparePositions(obj.pC.points.charger, obj.pC.getRelativePosition)
 
     charge()
 

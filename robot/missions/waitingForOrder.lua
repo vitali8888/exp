@@ -16,6 +16,10 @@ function mission.fail()
     return true
 end
 
+function mission.pause()
+    return true
+end
+
 function mission.afterCharge()
     return true
 end

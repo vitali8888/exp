@@ -31,6 +31,8 @@ function mission.close()
 --be sure do it before obj.mission = "new mission"
 
 
+function mission.stop()
+
 
 
 return mission

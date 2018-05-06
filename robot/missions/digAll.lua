@@ -24,6 +24,7 @@ function mission.barrier(direction)
     end
 end
 
+
 function mission.barrierGateUp()
 
     local pos = obj.pC.getRelativePosition()
@@ -141,7 +142,9 @@ function mission.afterEquip()
 end
 
 function mission.restoreCondition()
-    obj.mC.moveTo(obj.pC.points.lastaction)
+        repeat
+        obj.mC.moveTo(obj.pC.points.lastaction)
+        until obj.pC.comparePositions(obj.pC.points.lastaction, obj.pC.getRelativePosition)
 end
 
 function mission.getProgress()
@@ -158,6 +161,10 @@ function mission.close()
         obj.pC.unset(lastaction)
     end
     return true
+end
+
+function mission.pause()
+    mission.stop = true
 end
 
 function mission.start()
@@ -238,15 +245,8 @@ function mission.start()
     mission.IN.init(obj.pC.points.borderfirst, obj.pC.points.bordersecond, 3, true)
     os.sleep(1)
 
-    if (obj.pC.points.lastaction ~= nil) then
-        sender ("restoring data...")
-        obj.pC.setPosition(mission.IN.getStartPosition(obj.pC.points.lastaction), "lastaction")
+    obj.pC.setPosition(mission.IN.positionAdjustment(obj.pC.points.lastaction), "lastaction")
 
-        else
-        sender ("Prepearing data...")
-        obj.pC.setPosition(mission.IN.getStartPosition(nil), "lastaction")
-
-    end
 
     obj.pC.reCalcWZ()
     sender("working zone ready, pls dont change it before mission ends!")
@@ -254,25 +254,49 @@ function mission.start()
     robot.select(1)
     os.sleep(11)
 
-
+    mission.stop = false
     sender("moving to position...")
-    obj.mC.moveTo(obj.pC.points.lastaction)
+
 
 
     repeat
 
+    local posadj = mission.IN.positionAdjustment(obj.pC.points.lastaction)
+
+        repeat
+        obj.mC.moveTo(posadj)
+        until obj.pC.comparePositions(posadj, obj.pC.getRelativePosition)
+
     local direction = mission.IN.getDirection(obj.pC.getRelativePosition)
     if (direction == "changelayer") then
-        mission.IN.changeLayer(robot.swing, "actionThenMove")
+        mission.IN.changeLayer(robot.swingDown, true) -- second argument mean "action then move", change Down to Up if upsidedown change
         direction = mission.IN.getDirection(obj.pC.points.lastaction)
+        elseif(direction = "mission ends") then
+        obj.pC.setPosition(obj.pC.getPosition(), "lastaction")
+        sender("mission done")
+        print("mission done")
+        mission.stop = true
+        break
     end
     obj.mC.turnTo(direction)
-    
+
+    local dist = mission.IN.getDistToBorder(obj.pC.getRelativePosition)
+    if (dist > 10) then dist = 10 end
 
 
+    local actions = {}
+    actions[1] = robot.swingDown
+    actions[2] = robot.swing
+    actions[3] = robot.swingUp
 
+    for i=1, dist do
+       mission.IN.doAction(actions)
+       robot.forward()
+    end
 
+    obj.pC.setPosition(obj.pC.getPosition(), "lastaction")
 
+    os.sleep(0.8)
 
 
 
