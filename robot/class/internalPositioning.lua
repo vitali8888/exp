@@ -40,12 +40,12 @@ function class.toInternal(pos) --relative coords
     ipos.y = pos.y - class.posFrom.y
     ipos.z = pos.z - class.posFrom.z
 
-    if (ipos.x >= class.zoneWidth or ipos.z >= class.zoneLength or ipos.y >= class.zoneDepth + maxHeight) then
+    if (ipos.x >= class.zoneWidth or ipos.z >= class.zoneLength or ipos.y >= class.zoneDepth + class.maxHeight) then
         print("out of working zone, upper")
         return false
     end
 
-    if (ipos.x < 0 or ipos.z < 0 or ipos.y + maxHeight < 0) then
+    if (ipos.x < 0 or ipos.z < 0 or ipos.y + class.maxHeight < 0) then
         print("out of working zone, lower")
         return false
     end
@@ -79,17 +79,17 @@ end
 function class.getDirection(pos) --relative
 
     local ipos = class.toInternal(pos)
-    local layerID = class.findLayerByPos()
+    local layerID = class.findLayerByPos(pos)
     local direction = nil
 
-    if (layerID == class.topLayer and pos.x == posTo.x and pos.y == posTo.y) then return "mission ends" end
+    if (layerID == class.topLayer and pos.x == class.posTo.x and pos.y == class.posTo.y) then return "mission ends" end
 
-    if (pos.x == posTo.x and pos.z == posTo.z and class.isEven(layerID) == false) then return "changelayer" end
-    if (pos.x == posFrom.x and pos.z == posFrom.z and class.isEven(layerID) == true) then return "changelayer" end
+    if (pos.x == class.posTo.x and pos.z == class.posTo.z and class.isEven(layerID) == false) then return "changelayer" end
+    if (pos.x == class.posFrom.x and pos.z == class.posFrom.z and class.isEven(layerID) == true) then return "changelayer" end
 
-    if (pos.x == posTo.x and class.isEven(ipos.z) == true) or (pos.x == posFrom.x and class.isEven(ipos.z) == false) then direction = "zp" end
-    if (pos.x == posFrom.x and class.isEven(ipos.z) == true) then direction = "xp" end
-    if (pos.x == posTo.x and class.isEven(ipos.z) == false) then direction = "xn" end
+    if (pos.x == class.posTo.x and class.isEven(ipos.z) == true) or (pos.x == class.posFrom.x and class.isEven(ipos.z) == false) then direction = "zp" end
+    if (pos.x == class.posFrom.x and class.isEven(ipos.z) == true) then direction = "xp" end
+    if (pos.x == class.posTo.x and class.isEven(ipos.z) == false) then direction = "xn" end
 
     if (class.isEven(layerID)) then direction = class.invertDirection(direction) end
 
@@ -147,9 +147,9 @@ function class.calcLayers()
     local segment = class.maxHeight
     if (class.upsidedown)  then segment = 0 - class.maxHeight end
     local startWorkingHeight = class.getStartWorkingHeight()
+    local hovering = 1
+    if (class.upsidedown) then hovering = 0 - 1 end
 
-    local last = {}
-    last.thickness = 0
     for i=1, var do
         local a = {}
         a.workingHeight = startWorkingHeight + (segment*(i-1))
@@ -159,8 +159,8 @@ function class.calcLayers()
             else a.thickness = class.maxHeight
         end
 
-        a.startY = a.startWorkingHeight - 1 + (segment*(i-1))
-        a.toY = a.startY + segment
+        a.startY = startWorkingHeight - hovering + (segment*(i-1))
+        a.toY = a.startY + segment - hovering
 
         class.layers[i] = a
         class.topLayer = i
