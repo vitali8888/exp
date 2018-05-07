@@ -1,15 +1,15 @@
 --following class/missionInterface
 
 --this mission class uses positioning patterns of class internalPositioning
-mission.IN = require ("class/internalPositioning")
-local mission = {}
 
+local mission = {}
+mission.IN = require ("class/internalPositioning")
 local class = require ("class/singleton")
 obj = class.new()
 local robot = require("robot")
 local component = require("component")
 mission.name = "digAll"
-local mission.stop = false
+mission.stop = false
 
 
 function mission.barrier(direction)
@@ -271,7 +271,7 @@ function mission.start()
     if (direction == "changelayer") then
         mission.IN.changeLayer(robot.swingDown, true) -- second argument mean "action then move", change Down to Up if upsidedown change
         direction = mission.IN.getDirection(obj.pC.points.lastaction)
-        elseif(direction = "mission ends") then
+        elseif(direction == "mission ends") then
         obj.pC.setPosition(obj.pC.getPosition(), "lastaction")
         sender("mission done")
         print("mission done")

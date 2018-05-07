@@ -96,7 +96,7 @@ function class.getDirection(pos) --relative
     return direction
 end
 
-function class.changeLayer(function, atm)
+function class.changeLayer(func, atm)
 
     local move = nil
     local robot = require("robot")
@@ -110,14 +110,14 @@ function class.changeLayer(function, atm)
 
     if (atm) then
         for i=1, class.maxHeight do
-            function()
+            func()
             move()
         end
 
         else
         for i=1, class.maxHeight do
             move()
-            function()
+            func()
         end
     end
 
@@ -128,7 +128,7 @@ function class.getStartWorkingHeight()
     local depth = class.zoneDepth --virtual depth
 
     if class.balance ~= 0 then
-        local depth = class.zoneDepth + class.maxHeight - balance
+        depth = class.zoneDepth + class.maxHeight - class.balance
     end
 
     if (class.upsidedown) then
@@ -144,8 +144,8 @@ function class.calcLayers()
 
     local var = class.getInt(class.zoneDepth, class.maxHeight)
     if (class.balance > 0) then var = var + 1 end
-    local segment = maxHeight
-    if (class.upsidedown)  then segment = 0 - maxHeight end
+    local segment = class.maxHeight
+    if (class.upsidedown)  then segment = 0 - class.maxHeight end
     local startWorkingHeight = class.getStartWorkingHeight()
 
 
@@ -158,7 +158,7 @@ function class.calcLayers()
             else a.thickness = class.maxHeight
         end
 
-        a.startY = class.posFrom + (segment*(i-1))
+        a.startY = class.posFrom.y + (segment*(i-1))
 
         a.toY = a.startY + a.thickness
         if (class.upsidedown) then a.toY = a.startY - a.thickness end
@@ -222,8 +222,8 @@ function class.positionAdjustment(pos)
     local newPos = {}
 
     if (pos == nil) then
-        newPos.x = posFrom.x
-        newPos.z = posFrom.z
+        newPos.x = class.posFrom.x
+        newPos.z = class.posFrom.z
         newPos.y = class.getStartWorkingHeight()
 
         return newPos
