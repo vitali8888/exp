@@ -96,6 +96,11 @@ function me.setPosition(pos, Thing) --absolute position
 
 end
 
+function me.setPositionRelative(rp, Thing)
+    local pos = me.positionToAbsolute(rp)
+    me.setPosition(pos, Thing)
+end
+
 function me.unset(Thing)
     local filesystem = require ("filesystem")
     if (filesystem.exists(me.wD.."/reserveData/"..Thing)) then
