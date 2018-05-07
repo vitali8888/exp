@@ -190,11 +190,11 @@ end
 
 function class.doAction(actions)
 
-    local class = require("class/singleton")
-    local pos = nil
-    obj = class.new()
+    local classother = require("class/singleton")
+    local pos = {}
+    obj = classother.new()
     pos = obj.pC.getRelativePosition()
-    layerID = class.findLayerByPos(pos)
+    local layerID = class.findLayerByPos(pos)
 
     if (layerID == false) then print("Error! pos fail") end
     layer = class.layers[layerID]
@@ -207,15 +207,16 @@ end
 
 function class.getDistToBorder(pos)
     local ipos = class.toInternal(pos)
-    local layerID = class.findLayerByPos(pos)
+    local layer = class.findLayerByPos(pos)
     local dist = 1
 
-    if layerID == false then print("Error! out of wz!") end
-    layer = class.layers[layerID]
-    if (class.isEven(layer) and class.isEven(ipos.x)) or (class.isEven(layer) == false and class.isEven(ipos.x) == false) then dist = class.posFrom.x - pos.x
+    if layer == false then print("Error! out of wz!") end
+    if (class.isEven(layer) and class.isEven(ipos.x)) or (class.isEven(layer) == false and class.isEven(ipos.x) == false) then dist = pos.x - class.posFrom.x
         else
         dist = class.posTo.x - pos.x
     end
+
+    if (class.posFrom.x == pos.x or class.posTo.x == pos.x) then dist = 1 end
 
     if dist < 1 then dist = 1 end
 

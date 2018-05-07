@@ -243,9 +243,19 @@ function mission.start()
     os.sleep(1)
     sender ("init internal navigation...")
     mission.IN.init(obj.pC.points.borderfirst, obj.pC.points.bordersecond, 3, true)
+
+
+    if (mission.IN.positionAdjustment(obj.pC.points.lastaction) ~= false) then
+          sender("calculating start position")
+          obj.pC.setPositionRelative(mission.IN.positionAdjustment(obj.pC.points.lastaction), "lastaction")
+          else
+          sender("generating starting position")
+          obj.pC.setPositionRelative(mission.IN.positionAdjustment(nil), "lastaction")
+
+    end
     os.sleep(1)
 
-    obj.pC.setPositionRelative(mission.IN.positionAdjustment(obj.pC.points.lastaction), "lastaction")
+
 
 
     obj.pC.reCalcWZ()
@@ -280,21 +290,30 @@ function mission.start()
     end
     obj.mC.turnTo(direction)
 
-    local dist = mission.IN.getDistToBorder(obj.pC.getRelativePosition())
-    if (dist > 10) then dist = 10 end
-
 
     local actions = {}
     actions[1] = robot.swingDown
     actions[2] = robot.swing
     actions[3] = robot.swingUp
 
-    for i=1, dist do
-       mission.IN.doAction(actions)
-       robot.forward()
+
+    if (mission.IN.positionAdjustment(obj.pC.getRelativePosition()) ~= false) then
+
+        local dist = mission.IN.getDistToBorder(obj.pC.getRelativePosition())
+        if (dist > 10) then dist = 10 end
+
+
+        for i=1, dist do
+            mission.IN.doAction(actions)
+            robot.forward()
+        end
+
     end
 
-    obj.pC.setPosition(obj.pC.getPosition(), "lastaction")
+
+    if (mission.IN.positionAdjustment(obj.pC.getRelativePosition()) ~= false) then
+        obj.pC.setPosition(obj.pC.getPosition(), "lastaction")
+    end
 
     os.sleep(0.8)
 
