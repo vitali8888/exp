@@ -207,12 +207,12 @@ end
 
 function class.getDistToBorder(pos)
     local ipos = class.toInternal(pos)
-    local layerID = class.getLayerByPos(pos)
+    local layerID = class.findLayerByPos(pos)
     local dist = 1
 
     if layerID == false then print("Error! out of wz!") end
     layer = class.layers[layerID]
-    if (isEven(layer) and isEven(ipos.x)) or (isEven(layer) == false and isEven(ipos.x) == false) then dist = class.posFrom.x - pos.x
+    if (class.isEven(layer) and class.isEven(ipos.x)) or (class.isEven(layer) == false and class.isEven(ipos.x) == false) then dist = class.posFrom.x - pos.x
         else
         dist = class.posTo.x - pos.x
     end
