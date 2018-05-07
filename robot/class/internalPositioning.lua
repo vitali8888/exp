@@ -84,8 +84,13 @@ function class.getDirection(pos) --relative
 
     if (layerID == class.topLayer and pos.x == class.posTo.x and pos.y == class.posTo.y) then return "mission ends" end
 
-    if (pos.x == class.posTo.x and pos.z == class.posTo.z and class.isEven(layerID) == false) then return "changelayer" end
-    if (pos.x == class.posFrom.x and pos.z == class.posFrom.z and class.isEven(layerID) == true) then return "changelayer" end
+    if (class.isEven(class.zoneWidth-1)) then
+        if (pos.x == class.posTo.x and pos.z == class.posTo.z and class.isEven(layerID) == false) then return "changelayer" end
+        if (pos.x == class.posFrom.x and pos.z == class.posFrom.z and class.isEven(layerID) == true) then return "changelayer" end
+        else
+        if (pos.x == class.posFrom.x and pos.z == class.posTo.z and class.isEven(layerID) == false) then return "changelayer" end
+        if (pos.x == class.posFrom.x and pos.z == class.posFrom.z and class.isEven(layerID) == true) then return "changelayer" end
+    end
 
     if (pos.x == class.posTo.x and class.isEven(ipos.z) == true) or (pos.x == class.posFrom.x and class.isEven(ipos.z) == false) then direction = "zp" end
     if (pos.x == class.posFrom.x and class.isEven(ipos.z) == true) then direction = "xp" end
@@ -102,9 +107,9 @@ function class.changeLayer(func, atm)
     local robot = require("robot")
 
     if (class.upsidedown) then
-        move = robot.down()
+        move = robot.down
         else
-        move = robot.up()
+        move = robot.up
     end
 
 

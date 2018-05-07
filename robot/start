@@ -1,6 +1,7 @@
 local component = require("component")
 local event = require("event")
 local shell = require ("shell")
+local filesystem = require("filesystem")
 
 if (component.isAvailable("modem") == false) then print("requires wireless card") do return end end
 if (component.isAvailable("navigation") == false) then print("requires navigation upgrade") do return end end
@@ -16,7 +17,7 @@ local mission = require ("missions/waitingForOrder")
 
 if (filesystem.exists(shell.getWorkingDirectory().."/reserveData/mission") == true)
     then
-    local file = io.open("/reserveData/mission", "r")
+    local file = io.open("reserveData/mission", "r")
     local missionName = ""
     missionName = tostring(file:read())
         if (filesystem.exists(shell.getWorkingDirectory().."/missions/"..missionName..".lua"))
