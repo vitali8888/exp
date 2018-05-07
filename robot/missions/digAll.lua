@@ -245,7 +245,7 @@ function mission.start()
     mission.IN.init(obj.pC.points.borderfirst, obj.pC.points.bordersecond, 3, true)
     os.sleep(1)
 
-    obj.pC.setPositionRelative(mission.IN.positionAdjustment(obj.pC.points.lastaction, "lastaction"))
+    obj.pC.setPositionRelative(mission.IN.positionAdjustment(obj.pC.points.lastaction), "lastaction")
 
 
     obj.pC.reCalcWZ()

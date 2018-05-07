@@ -148,7 +148,8 @@ function class.calcLayers()
     if (class.upsidedown)  then segment = 0 - class.maxHeight end
     local startWorkingHeight = class.getStartWorkingHeight()
 
-
+    local last = {}
+    last.thickness = 0
     for i=1, var do
         local a = {}
         a.workingHeight = startWorkingHeight + (segment*(i-1))
@@ -158,14 +159,20 @@ function class.calcLayers()
             else a.thickness = class.maxHeight
         end
 
-        a.startY = class.posFrom.y + (segment*(i-1))
-
-        a.toY = a.startY + a.thickness
-        if (class.upsidedown) then a.toY = a.startY - a.thickness end
+        a.startY = a.startWorkingHeight - 1 + (segment*(i-1))
+        a.toY = a.startY + segment
 
         class.layers[i] = a
         class.topLayer = i
     end
+
+    if (class.upsidedown) then
+        local temp = 0
+        temp = class.layers[1].thickness
+        class.layers[1].thickness = class.layers[class.topLayer].thickness
+        class.layers[class.topLayer].thickness = temp
+    end
+
 
 end
 
