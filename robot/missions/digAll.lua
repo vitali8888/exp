@@ -144,7 +144,7 @@ end
 function mission.restoreCondition()
         repeat
         obj.mC.moveTo(obj.pC.points.lastaction)
-        until obj.pC.comparePositions(obj.pC.points.lastaction, obj.pC.getRelativePosition)
+        until obj.pC.comparePositions(obj.pC.points.lastaction, obj.pC.getRelativePosition())
 end
 
 function mission.getProgress()
@@ -245,7 +245,7 @@ function mission.start()
     mission.IN.init(obj.pC.points.borderfirst, obj.pC.points.bordersecond, 3, true)
     os.sleep(1)
 
-    obj.pC.setPositionRelative(mission.IN.positionAdjustment(obj.pC.points.lastaction), "lastaction")
+    obj.pC.setPositionRelative(mission.IN.positionAdjustment(obj.pC.points.lastaction, "lastaction"))
 
 
     obj.pC.reCalcWZ()
@@ -265,9 +265,9 @@ function mission.start()
 
         repeat
         obj.mC.moveTo(posadj)
-        until obj.pC.comparePositions(posadj, obj.pC.getRelativePosition)
+        until obj.pC.comparePositions(posadj, obj.pC.getRelativePosition())
 
-    local direction = mission.IN.getDirection(obj.pC.getRelativePosition)
+    local direction = mission.IN.getDirection(obj.pC.getRelativePosition())
     if (direction == "changelayer") then
         mission.IN.changeLayer(robot.swingDown, true) -- second argument mean "action then move", change Down to Up if upsidedown change
         direction = mission.IN.getDirection(obj.pC.points.lastaction)
@@ -280,7 +280,7 @@ function mission.start()
     end
     obj.mC.turnTo(direction)
 
-    local dist = mission.IN.getDistToBorder(obj.pC.getRelativePosition)
+    local dist = mission.IN.getDistToBorder(obj.pC.getRelativePosition())
     if (dist > 10) then dist = 10 end
 
 

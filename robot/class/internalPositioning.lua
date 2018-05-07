@@ -64,7 +64,7 @@ end
 function class.getBalance(Depth, maxHeight)
     local math = require ("math")
     local floor = math.floor(Depth/maxHeight)
-    local balance = Depth - floor
+    local balance = Depth - (floor*maxHeight)
     balance = math.abs(balance)
     return balance
 end

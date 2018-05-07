@@ -28,7 +28,7 @@ if (durability < 0.17) then
     mis.saveCondition()
            repeat
            obj.mC.moveTo(obj.pC.points.lootchest)
-           until obj.pC.comparePositions(obj.pC.points.lootchest, obj.pC.getRelativePosition)
+           until obj.pC.comparePositions(obj.pC.points.lootchest, obj.pC.getRelativePosition())
 
     if (dropLoot(obj.pC.points.lootchest) ~= true) then
             sender("Error! mission failed (miss the way to lootchest")
