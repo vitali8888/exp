@@ -40,15 +40,6 @@ function class.toInternal(pos) --relative coords
     ipos.y = pos.y - class.posFrom.y
     ipos.z = pos.z - class.posFrom.z
 
-    if (ipos.x >= class.zoneWidth or ipos.z >= class.zoneLength or ipos.y >= class.zoneDepth + class.maxHeight) then
-        print("out of working zone, upper")
-        return false
-    end
-
-    if (ipos.x < 0 or ipos.z < 0 or ipos.y + class.maxHeight < 0) then
-        print("out of working zone, lower")
-        return false
-    end
     return ipos
 end
 
@@ -82,14 +73,16 @@ function class.getDirection(pos) --relative
     local layerID = class.findLayerByPos(pos)
     local direction = nil
 
-    if (layerID == class.topLayer and pos.x == class.posTo.x and pos.y == class.posTo.y) then return "mission ends" end
+
 
     if (class.isEven(class.zoneWidth-1)) then
         if (pos.x == class.posTo.x and pos.z == class.posTo.z and class.isEven(layerID) == false) then return "changelayer" end
         if (pos.x == class.posFrom.x and pos.z == class.posFrom.z and class.isEven(layerID) == true) then return "changelayer" end
+        if (layerID == class.topLayer and pos.x == class.posTo.x and pos.y == class.posTo.y) then return "mission ends" end
         else
         if (pos.x == class.posFrom.x and pos.z == class.posTo.z and class.isEven(layerID) == false) then return "changelayer" end
         if (pos.x == class.posFrom.x and pos.z == class.posFrom.z and class.isEven(layerID) == true) then return "changelayer" end
+        if (layerID == class.topLayer and pos.x == class.posFrom.x and pos.y == class.posTo.y) then return "mission ends" end
     end
 
 
@@ -97,15 +90,15 @@ function class.getDirection(pos) --relative
 
 
     if (class.isEven(layerID)) then
-        if (pos.x == class.posTo.x and class.isEven(ipos.z) == true) then direction = "xp" end
-        if (pos.x == class.posFrom.x and class.isEven(ipos.z) == false) then direction = "xn" end
-        if (pos.x == class.posFrom.x and class.isEven(ipos.z) == true) or (pos.x == class.posTo.x and class.isEven(ipos.z) == false) then direction = "zp" end
-        direction = class.invertDirection(direction)
+        if (class.isEven(ipos.z) == true) then direction = "xn" end
+        if (class.isEven(ipos.z) == false) then direction = "xp" end
+        if (pos.x == class.posFrom.x and class.isEven(ipos.z) == true) or (pos.x == class.posTo.x and class.isEven(ipos.z) == false) then direction = "zn" end
+
         else
-        if (pos.x == class.posFrom.x and class.isEven(ipos.z) == true) then direction = "xp" end
-        if (pos.x == class.posTo.x and class.isEven(ipos.z) == false) then direction = "xn" end
+        if (class.isEven(ipos.z) == true) then direction = "xp" end
+        if (class.isEven(ipos.z) == false) then direction = "xn" end
         if (pos.x == class.posTo.x and class.isEven(ipos.z) == true) or (pos.x == class.posFrom.x and class.isEven(ipos.z) == false) then direction = "zp" end
-        end
+    end
 
     return direction
 end
@@ -219,20 +212,15 @@ function class.doAction(actions)
     end
 end
 
-function class.getDistToBorder(pos)
-    local ipos = class.toInternal(pos)
-    local layer = class.findLayerByPos(pos)
-    local dist = 1
+function class.getDistToBorder(direction, pos)
 
-    if layer == false then print("Error! out of wz!") end
-    if (class.isEven(layer) and class.isEven(ipos.x)) or (class.isEven(layer) == false and class.isEven(ipos.x) == false) then dist = pos.x - class.posFrom.x
-        else
-        dist = class.posTo.x - pos.x
-    end
+    local dist = 0
 
-    if (class.posFrom.x == pos.x or class.posTo.x == pos.x) then dist = 1 end
+    if direction == "xp" then dist = class.posTo.x - pos.x end
+    if direction == "xn" then dist = pos.x - class.posFrom.x end
+    if direction == "zn" or direction == "zp" then dist = 1 end
 
-    if dist < 1 then dist = 1 end
+    if dist < 0 then dist = 0 end
 
     return dist
 
