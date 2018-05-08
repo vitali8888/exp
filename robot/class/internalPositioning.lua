@@ -93,14 +93,17 @@ function class.getDirection(pos) --relative
     end
 
 
-    if (pos.x == class.posFrom.x and class.isEven(ipos.z) == true) then direction = "xp" end
-    if (pos.x == class.posTo.x and class.isEven(ipos.z) == false) then direction = "xn" end
+
 
 
     if (class.isEven(layerID)) then
-        if (pos.x == class.posTo.x and class.isEven(ipos.z) == true) or (pos.x == class.posFrom.x and class.isEven(ipos.z) == false) then direction = "zp" end
+        if (pos.x == class.posTo.x and class.isEven(ipos.z) == true) then direction = "xp" end
+        if (pos.x == class.posFrom.x and class.isEven(ipos.z) == false) then direction = "xn" end
+        if (pos.x == class.posFrom.x and class.isEven(ipos.z) == true) or (pos.x == class.posTo.x and class.isEven(ipos.z) == false) then direction = "zp" end
         direction = class.invertDirection(direction)
         else
+        if (pos.x == class.posFrom.x and class.isEven(ipos.z) == true) then direction = "xp" end
+        if (pos.x == class.posTo.x and class.isEven(ipos.z) == false) then direction = "xn" end
         if (pos.x == class.posTo.x and class.isEven(ipos.z) == true) or (pos.x == class.posFrom.x and class.isEven(ipos.z) == false) then direction = "zp" end
         end
 
