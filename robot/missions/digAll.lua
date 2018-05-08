@@ -299,7 +299,7 @@ function mission.start()
 
     if (mission.IN.positionAdjustment(obj.pC.getRelativePosition()) ~= false) then
 
-        local dist = mission.IN.getDistToBorder(obj.pC.getRelativePosition())
+        local dist = mission.IN.getDistToBorder(direction, obj.pC.getRelativePosition())
         if (dist > 10) then dist = 10 end
 
 
