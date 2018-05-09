@@ -295,7 +295,7 @@ function class.getCurrentVolumeDone(pos)
     local direction = class.getDirection(pos)
     if direction == "mission ends" then return class.getVolume() end
     if j ~= 0 then
-        for i=1, j
+        for i=1, j do
             volume = volume + class.zoneWidth*class.zoneLength*class.layers[i].thickness
         end
     end
@@ -308,23 +308,23 @@ function class.getCurrentVolumeDone(pos)
 
     local ipos = class.toInternal(pos)
     if class.isEven(layerID) then
-        volume = volume + class.zoneWidth*(class.zoneLength - ipos.z - 1)
+        volume = volume + class.zoneWidth*(class.zoneLength - ipos.z - 1)*class.layers[layerID].thickness
         else
-        volume = volume + class.zoneWidth*(ipos.z-1)
+        volume = volume + class.zoneWidth*(ipos.z-1)*class.layers[layerID].thickness
         end
 
     if direction == "zp" or direction == "zn" then
-        volume = volume + class.zoneWidth
+        volume = volume + class.zoneWidth*class.layers[layerID].thickness
         return volume
     end
 
     if direction == "xp" then
-        volume = volume + ipos.x + 1
+        volume = volume + (ipos.x + 1)*class.layers[layerID].thickness
         return volume
     end
 
     if direction == "xn" then
-        volume = volume + class.posTo.x - pos.x + 1
+        volume = volume + (class.posTo.x - pos.x + 1)*class.layers[layerID].thickness
         return volume
     end
 

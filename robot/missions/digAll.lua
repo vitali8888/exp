@@ -150,7 +150,7 @@ end
 function mission.getProgress()
  local math = require ("math")
  if mission.IN.isInit == false then return "mission has not yet begun" end
- local curvol = mission.getCurrentVolumeDone(obj.pC.points.lastaction)
+ local curvol = mission.IN.getCurrentVolumeDone(obj.pC.points.lastaction)
  if curvol == false then return "wrong position, restart the mission" end
  local prog = curvol/mission.IN.getVolume()
  prog = prog * 10000
