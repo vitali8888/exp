@@ -71,20 +71,21 @@ function class.getDirection(pos) --relative
 
     local ipos = class.toInternal(pos)
     local layerID = class.findLayerByPos(pos)
-    local direction = nil
+    local direction = ""
 
 
 
-    if (class.isEven(class.zoneWidth-1)) then
-        if (pos.x == class.posTo.x and pos.z == class.posTo.z and class.isEven(layerID) == false) then return "changelayer" end
-        if (pos.x == class.posFrom.x and pos.z == class.posFrom.z and class.isEven(layerID) == true) then return "changelayer" end
-        if (layerID == class.topLayer and pos.x == class.posTo.x and pos.y == class.posTo.y) then return "mission ends" end
+    if (class.isEven(class.zoneLength-1)) then
+        if (pos.x == class.posTo.x and pos.z == class.posTo.z and class.isEven(layerID) == false) then direction = "changelayer" end
+        if (pos.x == class.posFrom.x and pos.z == class.posFrom.z and class.isEven(layerID) == true) then direction = "changelayer" end
         else
-        if (pos.x == class.posFrom.x and pos.z == class.posTo.z and class.isEven(layerID) == false) then return "changelayer" end
-        if (pos.x == class.posFrom.x and pos.z == class.posFrom.z and class.isEven(layerID) == true) then return "changelayer" end
-        if (layerID == class.topLayer and pos.x == class.posFrom.x and pos.y == class.posTo.y) then return "mission ends" end
+        if (pos.x == class.posFrom.x and pos.z == class.posTo.z and class.isEven(layerID) == false) then direction = "changelayer" end
+        if (pos.x == class.posFrom.x and pos.z == class.posFrom.z and class.isEven(layerID) == true) then direction = "changelayer" end
     end
 
+    if direction == "changelayer" and layerID = class.topLayer then return "mission ends"
+        elseif direction == "changelayer" then return "changelayer"
+    end
 
 
 
