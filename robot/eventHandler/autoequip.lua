@@ -8,7 +8,7 @@ if durability == nil then durability = 0 end
 
 
 
-if (durability < 0.17) then
+if (durability < 0.02) then
 
     local reserveParams = {}
     local class = require ("class/singleton")
@@ -40,7 +40,7 @@ if (durability < 0.17) then
     obj.mC.moveTo(obj.pC.points.toolchest)
     robot.suckDown()
     component.inventory_controller.equip()
-    obj.mC.moveTo(obj.pC.points.lootchest)
+    obj.mC.moveTo(obj.pC.points.brokentoolchest)
     robot.dropDown()
 
     mis.afterEquip()

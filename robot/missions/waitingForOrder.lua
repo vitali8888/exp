@@ -43,7 +43,7 @@ function mission.afterEquip()
 end
 
 function mission.getProgress()
- return true
+ return "100%"
 end
 
 function mission.getName()

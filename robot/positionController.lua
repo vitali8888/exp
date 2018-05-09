@@ -3,7 +3,7 @@ local me = {}
 local shell = require("shell")
 
 me.correction = {}
-me.validThings = {"toolchest", "lootchest", "charger", "lastaction", "borderfirst", "bordersecond", "wzstart", "wzend"}
+me.validThings = {"toolchest", "lootchest", "charger", "lastaction", "borderfirst", "bordersecond", "wzstart", "wzend", "brokentoolchest"}
 me.points = {}
 me.wD = shell.getWorkingDirectory()
 

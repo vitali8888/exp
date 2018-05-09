@@ -105,7 +105,8 @@ function mission.afterCharge()
     robot.select(selected)
     local durability = robot.durability()
     if durability == nil then durability = 0 end
-    if (durability < 0.1) then
+    if (durability < 0.05) then
+        obj.mC.moveTo(obj.pC.points.brokentoolchest)
         component.inventory_controller.equip()
         robot.dropDown()
         obj.mC.moveTo(obj.pC.points.toolchest)
@@ -121,7 +122,8 @@ function mission.afterDrop()
 
     local durability = robot.durability()
     if durability == nil then durability = 0 end
-        if (durability < 0.1) then
+        if (durability < 0.05) then
+            obj.mC.moveTo(obj.pC.points.brokentoolchest)
             component.inventory_controller.equip()
             robot.dropDown()
             obj.mC.moveTo(obj.pC.points.toolchest)
@@ -200,6 +202,15 @@ function mission.start()
             return false
             else
             sender("lootchest is found..")
+    end
+
+    if (obj.pC.points.brokentoolchest == nil) then
+                sender("Error! cant find brokentoolchest")
+                sender("mission failed :(")
+                mission.fail("checking systems fail")
+                return false
+                else
+                sender("brokentoolchest is found..")
     end
 
     if (obj.pC.points.toolchest == nil) then
@@ -287,6 +298,7 @@ function mission.start()
 
     local direction = mission.IN.getDirection(obj.pC.getRelativePosition())
     if (direction == "changelayer") then
+        robot.swingUp()
         mission.IN.changeLayer(robot.swingDown, true) -- second argument mean "action then move", change Down to Up if upsidedown change
         direction = mission.IN.getDirection(obj.pC.points.lastaction)
         elseif(direction == "mission ends") then
@@ -308,7 +320,7 @@ function mission.start()
     if (mission.IN.positionAdjustment(obj.pC.getRelativePosition()) ~= false) then
 
         local dist = mission.IN.getDistToBorder(direction, obj.pC.getRelativePosition())
-        if (dist > 10) then dist = 10 end
+        if (dist > 30) then dist = 30 end
 
 
         for i=1, dist do
@@ -323,7 +335,7 @@ function mission.start()
         obj.pC.setPosition(obj.pC.getPosition(), "lastaction")
     end
 
-    os.sleep(0.8)
+    os.sleep(0.3)
 
 
 
