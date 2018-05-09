@@ -170,6 +170,7 @@ function mission.close()
     if (obj.pC.points.lastaction ~= nil) then
         obj.pC.unset("lastaction")
     end
+    mission.fail("")
     return true
 end
 
