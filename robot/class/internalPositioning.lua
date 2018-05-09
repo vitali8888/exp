@@ -10,6 +10,7 @@ class.upsidedown = nil -- Time Part I 19:38 :)
 class.balance = nil
 class.layers = {}
 class.topLayer = nil
+class.isInit = false
 
 
 
@@ -30,7 +31,7 @@ function class.init(posFrom, posTo, maxHeight, upsidedown) --relative coords, nu
     end
 
     class.calcLayers()
-
+    class.isInit = true
 
 end
 
@@ -71,6 +72,7 @@ function class.getDirection(pos) --relative
 
     local ipos = class.toInternal(pos)
     local layerID = class.findLayerByPos(pos)
+    if layerID == false then return "to wz!" end
     local direction = ""
 
 
@@ -83,7 +85,7 @@ function class.getDirection(pos) --relative
         if (pos.x == class.posFrom.x and pos.z == class.posFrom.z and class.isEven(layerID) == true) then direction = "changelayer" end
     end
 
-    if direction == "changelayer" and layerID = class.topLayer then return "mission ends"
+    if direction == "changelayer" and layerID == class.topLayer then return "mission ends"
         elseif direction == "changelayer" then return "changelayer"
     end
 
@@ -277,6 +279,57 @@ end
 function class.isEven(num)
     if (class.getBalance(num, 2) == 0) then return true end
     return false
+end
+
+function class.getVolume()
+    local volume = class.zoneLength*class.zoneWidth*class.zoneDepth
+    return volume
+end
+
+function class.getCurrentVolumeDone(pos)
+    if class.positionAdjustment(pos) == false then return false end
+    local layerID = class.findLayerByPos(pos)
+    if layerID == false then return false end
+    local j = layerID - 1
+    local volume = 0
+    local direction = class.getDirection(pos)
+    if direction == "mission ends" then return class.getVolume() end
+    if j ~= 0 then
+        for i=1, j
+            volume = volume + class.zoneWidth*class.zoneLength*class.layers[i].thickness
+        end
+    end
+
+    if direction == "changelayer" then
+        volume = volume + class.zoneWidth*class.zoneLength*class.layers[layerID].thickness
+        return volume
+    end
+
+
+    local ipos = class.toInternal(pos)
+    if class.isEven(layerID) then
+        volume = volume + class.zoneWidth*(class.zoneLength - ipos.z - 1)
+        else
+        volume = volume + class.zoneWidth*(ipos.z-1)
+        end
+
+    if direction == "zp" or direction == "zn" then
+        volume = volume + class.zoneWidth
+        return volume
+    end
+
+    if direction == "xp" then
+        volume = volume + ipos.x + 1
+        return volume
+    end
+
+    if direction == "xn" then
+        volume = volume + class.posTo.x - pos.x + 1
+        return volume
+    end
+
+    return volume
+
 end
 
 return class

@@ -148,7 +148,15 @@ function mission.restoreCondition()
 end
 
 function mission.getProgress()
- return true
+ local math = require ("math")
+ if mission.IN.isInit == false then return "mission has not yet begun" end
+ local curvol = mission.getCurrentVolumeDone(obj.pC.points.lastaction)
+ if curvol == false then return "wrong position, restart the mission" end
+ local prog = curvol/mission.IN.getVolume()
+ prog = prog * 10000
+ prog = math.floor(prog)
+ local strprog = tostring(prog/100).."%"
+ return strprog
 end
 
 function mission.getName()
