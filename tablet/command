@@ -1,12 +1,72 @@
 local component = require ("component")
+local event = require("event")
 local m = component.modem
 
+local receiver = false
 m.open(888)
-
 local command
+
+
+function mesHandle(_, from, port, _, message)
+    receiver = from
+    event.ignore("modem_message", mesHandle)
+    print("connection established")
+end
+
+
+
+
+function connect(tableCommand, command)
+    event.listen("modem_message", mesHandle)
+    m.broadcast(888, command)
+    os.sleep(3)
+    if receiver == false then
+        print("robot is not found, name: "..tableCommand[2])
+        event.ignore("modem_message", mesHandle)
+    end
+end
+
+function disconnect()
+    receiver = false
+end
+
+function sendCommand(command)
+    if receiver == false then
+        m.broadcast(888, command)
+        else
+        m.send(receiver, 888, command)
+    end
+
+end
+
+function separateCommand(command)
+    local message = {}
+        local i=1
+        for w in string.gmatch(command, "%S+") do
+            message[i] = w
+            i = i + 1
+        end
+    return message
+end
+
+
+
 repeat
+
     io.flush()
     command = io.read()
-    m.broadcast(888, command)
+    local tableCommand = separateCommand(command)
+
+
+    if tableCommand[1] == "connect" then connect(tableCommand, command)
+        else
+        sendCommand(command)
+    end
+
+    if tableCommand[1] == "disconnect" then disconnect()
+        else
+        sendCommand(command)
+    end
+
 
 until command == "exit"
