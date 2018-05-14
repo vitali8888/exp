@@ -80,6 +80,7 @@ function me.up()
     osmv("info.lua", "robot/command/info.lua")
     osmv("internalPositioning.lua", "robot/class/internalPositioning.lua")
     osmv("pausemission.lua", "robot/command/pausemission.lua")
+    osmv("connect.lua", "robot/command/connect.lua")
 
     print("deleting data")
 

@@ -11,12 +11,15 @@ function connect(tableCommand, command)
         if (tableCommand[2] ~= nil) then
                 m.broadcast(888, command)
                 local _, _, from, port, _, message = event.pull(10, "modem_message")
-                local tableMessage = separateCommand(message)
-                if (from ~= nil) and (tableMessage[1] == (tableCommand[2]..":")) then
-                        receiver = from
-                        print("connection established")
-                    else print ("robot is not found, try again")
-                end
+                    if message ~= nil then
+                        local tableMessage = separateCommand(message)
+                        if (from ~= nil) and (tableMessage[1] == (tableCommand[2]..":")) then
+                                receiver = from
+                                print("connection established")
+                            else print ("robot is not found, try again")
+                        end
+                        else print ("robot is not found, try again")
+                    end
         end
 end
 
