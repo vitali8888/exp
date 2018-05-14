@@ -4,26 +4,20 @@ local m = component.modem
 
 local receiver = false
 m.open(888)
-local command
-
-
-function mesHandle(_, from, port, _, message)
-    receiver = from
-    event.ignore("modem_message", mesHandle)
-    print("connection established")
-end
-
-
+--local command
 
 
 function connect(tableCommand, command)
-    event.listen("modem_message", mesHandle)
-    m.broadcast(888, command)
-    os.sleep(3)
-    if receiver == false then
-        print("robot is not found, name: "..tableCommand[2])
-        event.ignore("modem_message", mesHandle)
-    end
+        if (tableCommand[2] ~= nil) then
+                m.broadcast(888, command)
+                local _, _, from, port, _, message = event.pull(10, "modem_message")
+                local tableMessage = separateCommand(message)
+                if (from ~= nil) and (tableMessage[1] == (tableCommand[2]..":")) then
+                        receiver = from
+                        print("connection established")
+                    else print ("robot is not found, try again")
+                end
+        end
 end
 
 function disconnect()
@@ -54,19 +48,17 @@ end
 repeat
 
     io.flush()
-    command = io.read()
+    local command = io.read()
     local tableCommand = separateCommand(command)
 
 
     if tableCommand[1] == "connect" then connect(tableCommand, command)
+        elseif tableCommand[1] == "disconnect" then
+        disconnect()
         else
         sendCommand(command)
     end
 
-    if tableCommand[1] == "disconnect" then disconnect()
-        else
-        sendCommand(command)
-    end
 
 
 until command == "exit"

@@ -9,7 +9,7 @@ local pos = obj.pC.getPosition()
 
 
 sender("energy: "..(math.floor(computer.energy()/computer.maxEnergy()*10000)/100).."%")
-if robot.durability ~= nil then
+if robot.durability() ~= nil then
 sender("tool durability: "..(math.floor(robot.durability()*10000)/100).."%")
 end
 sender("position: X="..pos.x.." Y="..pos.y.." Z="..pos.z)
