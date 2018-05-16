@@ -280,6 +280,10 @@ function mission.fillInv()
         return true
     end
 
+    obj.mC.moveTo(obj.pC.points.charger)
+    local charge = require ("actions/charge")
+    charge()
+    
     repeat
                 obj.mC.moveTo(obj.pC.points.lastaction)
     until obj.pC.comparePositions(obj.pC.points.lastaction, obj.pC.getRelativePosition())
