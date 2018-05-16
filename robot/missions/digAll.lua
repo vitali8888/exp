@@ -259,6 +259,9 @@ function mission.start()
     end
 
 
+    obj.pC.reCalcWZ()
+    sender("working zone ready, pls dont change it before mission ends!")
+    os.sleep(5)
 
     os.sleep(1)
     sender ("init internal navigation...")
@@ -276,13 +279,8 @@ function mission.start()
     os.sleep(1)
 
 
-
-
-    obj.pC.reCalcWZ()
-    sender("working zone ready, pls dont change it before mission ends!")
-
     robot.select(1)
-    os.sleep(11)
+    os.sleep(6)
 
     mission.stop = false
     sender("moving to position...")

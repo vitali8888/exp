@@ -14,7 +14,7 @@ class.isInit = false
 
 
 
-function class.init(posFrom, posTo, maxHeight, upsidedown) --relative coords, number, boolean
+function class.init(posFrom, posTo, maxHeight, upsidedown, hovering) --relative coords, number, boolean
     class.posFrom = posFrom
     class.posTo = posTo
     class.zoneLength = posTo.z - posFrom.z + 1
@@ -23,6 +23,7 @@ function class.init(posFrom, posTo, maxHeight, upsidedown) --relative coords, nu
     class.maxHeight = maxHeight
     class.balance = class.getBalance(class.zoneDepth, class.maxHeight)
     class.upsidedown = upsidedown
+    class.hovering = hovering
 
     if (upsidedown) then
        local y = class.posFrom.y
@@ -142,9 +143,9 @@ function class.getStartWorkingHeight()
     end
 
     if (class.upsidedown) then
-        startY = class.posTo.y + depth - 2
+        startY = class.posTo.y + depth - 1 - class.hovering
         else
-        startY = class.posFrom.y + 1
+        startY = class.posFrom.y + class.hovering
     end
 
     return startY --relative
@@ -157,8 +158,10 @@ function class.calcLayers()
     local segment = class.maxHeight
     if (class.upsidedown)  then segment = 0 - class.maxHeight end
     local startWorkingHeight = class.getStartWorkingHeight()
-    local hovering = 1
-    if (class.upsidedown) then hovering = 0 - 1 end
+    local hovering = class.hovering
+    if (class.upsidedown) then hovering = 0 - hovering end
+    local factor = 1
+    if (class.upsidedown) then factor = 0 - 1 end
 
     for i=1, var do
         local a = {}
@@ -170,7 +173,7 @@ function class.calcLayers()
         end
 
         a.startY = startWorkingHeight - hovering + (segment*(i-1))
-        a.toY = a.startY + segment - hovering
+        a.toY = startWorkingHeigth + (segment*i) - factor
 
         class.layers[i] = a
         class.topLayer = i
@@ -189,9 +192,16 @@ end
 function class.findLayerByPos(pos)
 
     local y = pos.y
-    for key,value in pairs(class.layers) do
 
-    if (y <= value.startY and y >= value.toY) or (y >= value.startY and y <= value.toY)
+    for key, value in pairs(class.layers) do
+    if (y == value.workingHeight)
+            then return key end
+    end
+
+    y = y + class.hovering
+
+    for key,value in pairs(class.layers) do
+    if ((y - class.hovering) <= value.startY and (y - class.hovering) >= value.toY) or ((y + class.hovering) >= value.startY and (y + class.hovering) <= value.toY)
         then return key end
     end
 

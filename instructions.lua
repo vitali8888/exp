@@ -82,6 +82,7 @@ function me.up()
     osmv("pausemission.lua", "robot/command/pausemission.lua")
     osmv("connect.lua", "robot/command/connect.lua")
     osmv("fillAll.lua", "robot/missions/fillAll.lua")
+    osmv("inventoryController.lua", "robot/inventoryController.lua")
 
     print("deleting data")
 

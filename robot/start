@@ -9,6 +9,7 @@ if (component.isAvailable("navigation") == false) then print("requires navigatio
 local m = component.modem
 m.open(888)
 
+local inventoryController = require ("inventoryController")
 local eventController = require ("eventController")
 local positionController = require ("positionController")
 local moveController = require ("moveController")
@@ -30,6 +31,7 @@ obj = class.new()
 obj.eC = eventController
 obj.pC = positionController
 obj.mC = moveController
+obj.iC = inventoryController
 
 obj.pC.init()
 obj.eC.addEvent("tabletmessage", "modem_message", "tabletmessage")

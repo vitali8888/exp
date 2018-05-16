@@ -136,6 +136,9 @@ function mission.start()
     end
 
 
+    obj.pC.reCalcWZ()
+    sender("working zone ready, pls dont change it before mission ends!")
+    os.sleep(5)
 
     os.sleep(1)
     sender ("init internal navigation...")
@@ -154,12 +157,8 @@ function mission.start()
 
 
 
-
-    obj.pC.reCalcWZ()
-    sender("working zone ready, pls dont change it before mission ends!")
-
     robot.select(1)
-    os.sleep(11)
+    os.sleep(6)
 
     mission.stop = false
     sender("moving to position...")
@@ -224,6 +223,13 @@ end
 function mission.setSlot()
     if (robot.count() == 0) then
         local try = 0
+
+        if (obj.iC.calcMaterial() == 0) then
+            mission.fillInv()
+            robot.select(1)
+            return true
+        end
+
         repeat
             local selected = robot.select()
             if (selected == robot.inventorySize()) then robot.select(1)
@@ -256,6 +262,12 @@ function mission.fillInv()
 
     for i = 1, robot.inventorySize() do
          robot.suckDown()
+    end
+
+    if (obj.iC.calcMaterial() == 0) then
+        print("the materials ended")
+        mission.stop = true
+        return true
     end
 
     repeat
