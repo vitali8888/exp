@@ -176,7 +176,7 @@ function mission.start()
         until obj.pC.comparePositions(posadj, obj.pC.getRelativePosition())
 
     if (mission.directionControll() == false) then break end
-
+    local direction = mission.IN.getDirection(obj.pC.getRelativePosition())
 
     local actions = {}
     actions[1] = robot.placeDown
