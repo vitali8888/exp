@@ -161,6 +161,7 @@ function mission.start()
     robot.select(1)
     os.sleep(6)
 
+    mission.setSlot()
     mission.stop = false
     sender("moving to position...")
 
