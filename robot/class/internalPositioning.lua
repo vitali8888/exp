@@ -173,7 +173,7 @@ function class.calcLayers()
         end
 
         a.startY = startWorkingHeight - hovering + (segment*(i-1))
-        a.toY = startWorkingHeigth + (segment*i) - factor
+        a.toY = startWorkingHeight + (segment*i) - factor
 
         class.layers[i] = a
         class.topLayer = i

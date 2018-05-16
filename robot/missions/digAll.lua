@@ -265,7 +265,7 @@ function mission.start()
 
     os.sleep(1)
     sender ("init internal navigation...")
-    mission.IN.init(obj.pC.points.borderfirst, obj.pC.points.bordersecond, 3, true)
+    mission.IN.init(obj.pC.points.borderfirst, obj.pC.points.bordersecond, 3, true, 1)
 
 
     if (mission.IN.positionAdjustment(obj.pC.points.lastaction) ~= false) then

@@ -7,9 +7,10 @@ function class.calcMaterial()
     local materials = 0
 
     for i=1, robot.inventorySize() do
+        robot.select(i)
         materials = materials + robot.count()
     end
-
+    robot.select(selected)
     return materials
 end
 

@@ -10,6 +10,7 @@ local robot = require("robot")
 local component = require("component")
 mission.name = "fillAll"
 mission.stop = false
+local sender = require ("actions/messageSender")
 
 
 function mission.barrier(direction)
@@ -142,7 +143,7 @@ function mission.start()
 
     os.sleep(1)
     sender ("init internal navigation...")
-    mission.IN.init(obj.pC.points.borderfirst, obj.pC.points.bordersecond, 1, false)
+    mission.IN.init(obj.pC.points.borderfirst, obj.pC.points.bordersecond, 1, false, 1)
 
 
     if (mission.IN.positionAdjustment(obj.pC.points.lastaction) ~= false) then
@@ -173,21 +174,7 @@ function mission.start()
         obj.mC.moveTo(posadj)
         until obj.pC.comparePositions(posadj, obj.pC.getRelativePosition())
 
-    local direction = mission.IN.getDirection(obj.pC.getRelativePosition())
-    if (direction == "changelayer") then
-        mission.setSlot()
-        robot.placeDown()
-        mission.setSlot()
-        mission.IN.changeLayer(robot.placeDown, false) -- second argument mean "action then move", change Down to Up if upsidedown change
-        direction = mission.IN.getDirection(obj.pC.points.lastaction)
-        elseif(direction == "mission ends") then
-        obj.pC.setPosition(obj.pC.getPosition(), "lastaction")
-        sender("mission done")
-        print("mission done")
-        mission.stop = true
-        break
-    end
-    obj.mC.turnTo(direction)
+    mission.directionControll()
 
 
     local actions = {}
@@ -250,9 +237,30 @@ function mission.setSlot()
 
 end
 
+function mission.directionControll()
+    local direction = mission.IN.getDirection(obj.pC.getRelativePosition())
+    if (direction == "changelayer") then
+        mission.setSlot()
+        robot.placeDown()
+        mission.setSlot()
+        mission.IN.changeLayer(robot.placeDown, false) -- second argument mean "action then move", change Down to Up if upsidedown change
+        direction = mission.IN.getDirection(obj.pC.points.lastaction)
+        elseif(direction == "mission ends") then
+        mission.setSlot()
+        robot.placeDown()
+        obj.pC.setPosition(obj.pC.getPosition(), "lastaction")
+        sender("mission done")
+        print("mission done")
+        mission.stop = true
+        break
+    end
+    obj.mC.turnTo(direction)
+end
+
+
 function mission.fillInv()
     if (mission.IN.positionAdjustment(obj.pC.getRelativePosition()) ~= false) then
-            obj.pC.setPosition(obj.pC.getPosition(), "lastaction")
+            obj.pC.setPosition(mission.IN.positionAdjustment(obj.pC.getRelativePosition()), "lastaction")
     end
 
     repeat
@@ -273,7 +281,7 @@ function mission.fillInv()
     repeat
                 obj.mC.moveTo(obj.pC.points.lastaction)
     until obj.pC.comparePositions(obj.pC.points.lastaction, obj.pC.getRelativePosition())
-
+    mission.directionControll()
 end
 
 
