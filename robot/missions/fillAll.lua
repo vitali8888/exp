@@ -174,7 +174,7 @@ function mission.start()
         obj.mC.moveTo(posadj)
         until obj.pC.comparePositions(posadj, obj.pC.getRelativePosition())
 
-    mission.directionControll()
+    if (mission.directionControll() == false) then break end
 
 
     local actions = {}
@@ -252,9 +252,10 @@ function mission.directionControll()
         sender("mission done")
         print("mission done")
         mission.stop = true
-        break
+        return false
     end
     obj.mC.turnTo(direction)
+    return true
 end
 
 
