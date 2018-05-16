@@ -199,7 +199,7 @@ function mission.start()
 
 
     if (mission.IN.positionAdjustment(obj.pC.getRelativePosition()) ~= false) then
-        obj.pC.setPosition(obj.pC.getPosition(), "lastaction")
+                obj.pC.setPositionRelative(mission.IN.positionAdjustment(obj.pC.getRelativePosition()), "lastaction")
     end
 
     os.sleep(0.3)
@@ -262,7 +262,7 @@ end
 
 function mission.fillInv()
     if (mission.IN.positionAdjustment(obj.pC.getRelativePosition()) ~= false) then
-            obj.pC.setPosition(mission.IN.positionAdjustment(obj.pC.getRelativePosition()), "lastaction")
+            obj.pC.setPositionRelative(mission.IN.positionAdjustment(obj.pC.getRelativePosition()), "lastaction")
     end
 
     repeat
@@ -283,7 +283,7 @@ function mission.fillInv()
     obj.mC.moveTo(obj.pC.points.charger)
     local charge = require ("actions/charge")
     charge()
-    
+
     repeat
                 obj.mC.moveTo(obj.pC.points.lastaction)
     until obj.pC.comparePositions(obj.pC.points.lastaction, obj.pC.getRelativePosition())

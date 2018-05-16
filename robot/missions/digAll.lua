@@ -331,7 +331,7 @@ function mission.start()
 
 
     if (mission.IN.positionAdjustment(obj.pC.getRelativePosition()) ~= false) then
-        obj.pC.setPosition(obj.pC.getPosition(), "lastaction")
+                obj.pC.setPositionRelative(mission.IN.positionAdjustment(obj.pC.getRelativePosition()), "lastaction")
     end
 
     os.sleep(0.3)
