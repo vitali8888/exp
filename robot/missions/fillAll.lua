@@ -36,7 +36,7 @@ function mission.posAcToFacing(pos)
         pos.x = pos.x + 1
         return pos
     end
-    print("unbelivable error! unreal facing!")
+    print("uDnbelivable error! unreal facing!")
 end
 
 function mission.saveCondition()
@@ -245,7 +245,7 @@ function mission.directionControll()
         robot.placeDown()
         mission.setSlot()
         mission.IN.changeLayer(robot.placeDown, false) -- second argument mean "action then move", change Down to Up if upsidedown change
-        direction = mission.IN.getDirection(obj.pC.points.lastaction)
+        direction = mission.IN.getDirection(obj.pC.getRelativePosition())
         elseif(direction == "mission ends") then
         mission.setSlot()
         robot.placeDown()
