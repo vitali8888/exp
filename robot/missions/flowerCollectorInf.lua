@@ -321,6 +321,8 @@ function mission.start()
         robot.placeDown()
         robot.select(1)
 
+        obj.pC.setPositionRelative(mission.IN.positionAdjustment(nil), "lastaction")
+        mission.cycleEnds = false
 
 
     repeat

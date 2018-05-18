@@ -9,7 +9,7 @@ class.materials = {}
 
     --init
 function class.init()
-    local class.wd = shell.getWorkingDirectory()
+    class.wd = shell.getWorkingDirectory()
     if filesystem.exists(class.wd.."/reserveData/inventory") then
         local file = io.open("reserveData/inventory", "r")
         for i = 1, class.inventorySize do
@@ -59,7 +59,7 @@ function class.hasEmptySlot(material)
 
     for i=1, class.inventorySize() do
         robot.select(i)
-        if robot.count() == 0 then return true
+        if robot.count() == 0 then return true end
     end
     robot.select(selected)
     return false
@@ -69,10 +69,10 @@ function class.selectEmptySlotFor(material)
 
     local selected = robot.select()
 
-    for i=1, class.inventorySize() do
+    for i=1, class.inventorySize do
         robot.select(i)
         if (class.internalDB[i] == material) and (robot.count() == 0) then
-        return true
+        return true end
     end
 
     robot.select(selected)
@@ -94,7 +94,7 @@ function class.selectNotEmptySlotFor(material)
     for i = 1, class.inventorySize do
         robot.select(i)
         if class.internalDB[i] == material and robot.count() ~= 0 then
-        return true
+        return true end
     end
     robot.select(selected)
     return false
@@ -132,7 +132,7 @@ function class.selectEmptySlot()
 
     for i=1, class.inventorySize do
         robot.select(i)
-        if count == 0 then return true
+        if count == 0 then return true end
     end
 
     robot.select(selected)

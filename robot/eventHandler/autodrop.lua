@@ -9,7 +9,7 @@ local selectedSlot = robot.select()
 
 
 
-if (obj.iC.selectEmptySlotFor(nil)) then
+if (obj.iC.selectNotEmptySlotFor(nil)) then
 
     local reserveParams = {}
     local class = require ("class/singleton")
