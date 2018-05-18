@@ -6,15 +6,9 @@ obj = class.new()
 
 if (obj.pC.comparePositions(obj.pC.getRelativePosition(), lootchest)) then
 
-        local robot = require ("robot")
-        local size = robot.inventorySize()
-
-        for i=1, size do
-            robot.select(i)
-            robot.dropDown()
-        end
-            return true
- else
+        obj.iC.dropAll(nil)
+        return true
+    else
     return false
 end
 

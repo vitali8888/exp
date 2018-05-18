@@ -299,7 +299,7 @@ function mission.start()
     if (direction == "changelayer") then
         robot.swingUp()
         mission.IN.changeLayer(robot.swingDown, true) -- second argument mean "action then move", change Down to Up if upsidedown change
-        direction = mission.IN.getDirection(obj.pC.points.lastaction)
+        direction = mission.IN.getDirection(obj.pC.getRelativePosition())
         elseif(direction == "mission ends") then
         obj.pC.setPosition(obj.pC.getPosition(), "lastaction")
         sender("mission done")
@@ -324,7 +324,12 @@ function mission.start()
 
         for i=1, dist do
             mission.IN.doAction(actions)
-            robot.forward()
+            local asd = robot.forward()
+            if asd == false then
+                if mission.IN.positionAdjustment(obj.pC.getRelativePosition()) ~= false
+                    then robot.swing()
+                end
+            end
         end
 
     end
@@ -334,7 +339,7 @@ function mission.start()
                 obj.pC.setPositionRelative(mission.IN.positionAdjustment(obj.pC.getRelativePosition()), "lastaction")
     end
 
-    os.sleep(0.3)
+    os.sleep(0.15)
 
 
 

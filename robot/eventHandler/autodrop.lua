@@ -1,15 +1,15 @@
 return function()
 
+local class = require("class/singleton")
+obj = class.new()
 local computer = require("computer")
 local robot = require("robot")
 local selectedSlot = robot.select()
-local size = robot.inventorySize()
-robot.select(size)
-local count = robot.count()
-robot.select(selectedSlot)
 
 
-if (count > 0) then
+
+
+if (obj.iC.selectEmptySlotFor(nil)) then
 
     local reserveParams = {}
     local class = require ("class/singleton")
@@ -44,5 +44,6 @@ if (count > 0) then
     mis.restoreCondition()
 
 end
+robot.select(selectedSlot)
 
 end

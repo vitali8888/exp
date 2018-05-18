@@ -212,7 +212,7 @@ function mission.setSlot()
     if (robot.count() == 0) then
         local try = 0
 
-        if (obj.iC.calcMaterial() == 0) then
+        if (obj.iC.calcMaterial(nil) == 0) then
             mission.fillInv()
             robot.select(1)
             return true
@@ -274,7 +274,7 @@ function mission.fillInv()
          robot.suckDown()
     end
 
-    if (obj.iC.calcMaterial() == 0) then
+    if (obj.iC.calcMaterial(nil) == 0) then
         print("the materials ended")
         mission.stop = true
         return true

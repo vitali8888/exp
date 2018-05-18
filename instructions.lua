@@ -83,6 +83,8 @@ function me.up()
     osmv("connect.lua", "robot/command/connect.lua")
     osmv("fillAll.lua", "robot/missions/fillAll.lua")
     osmv("inventoryController.lua", "robot/inventoryController.lua")
+    osmv("useToolInf.lua", "robot/missions/useToolInf.lua")
+    osmv("flowerCollectorInf.lua", "robot/missions/flowerCollectorInf.lua")
 
     print("deleting data")
 

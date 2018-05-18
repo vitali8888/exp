@@ -35,13 +35,15 @@ if (durability < 0.02) then
             mis.fail("drop loot before reequip")
     end
 
-    robot.select(selectedSlot)
 
+
+    obj.iC.selectEmptySlot()
     obj.mC.moveTo(obj.pC.points.toolchest)
     robot.suckDown()
     component.inventory_controller.equip()
     obj.mC.moveTo(obj.pC.points.brokentoolchest)
     robot.dropDown()
+    robot.select(selectedSlot)
 
     mis.afterEquip()
     obj.eC.dropEvent("charging")
