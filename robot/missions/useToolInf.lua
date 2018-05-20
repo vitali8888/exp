@@ -260,6 +260,8 @@ function mission.start()
     os.sleep(0.15)
 
 
+    sender("free memory: "..computer.freeMemory())
+    
 
     until mission.stop == true
 

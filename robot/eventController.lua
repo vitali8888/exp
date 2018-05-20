@@ -6,6 +6,8 @@ obj.timers = {}
 
 function obj.addEvent(name, signal, handler)
 
+    if obj.events[name] ~= nil then return true end
+
     obj.events[name] = {}
     obj.events[name].signal = signal
 
@@ -36,6 +38,8 @@ function obj.dropAllEvents()
 end
 
 function obj.addTimer(name, interval, handler)
+
+    if obj.timers[name] ~= nil then return true end
 
     local eventHandler = require ("eventHandler/"..handler)
     local math = require ("math")
