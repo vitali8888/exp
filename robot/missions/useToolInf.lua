@@ -10,7 +10,7 @@ local robot = require("robot")
 local component = require("component")
 mission.name = "useToolInf"
 mission.stop = false
-
+mission.step = 0
 
 function mission.barrier(direction)
 
