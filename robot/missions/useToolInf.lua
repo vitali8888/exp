@@ -82,7 +82,7 @@ function mission.restoreCondition()
 end
 
 function mission.getProgress()
- return "process in action... "
+ return mission.step
 end
 
 function mission.getName()
@@ -210,49 +210,50 @@ function mission.start()
     sender("moving to position...")
 
 
+    step = 0
 
     repeat
-
+        step = 1
     local posadj = mission.IN.positionAdjustment(obj.pC.points.lastaction)
 
         repeat
         obj.mC.moveTo(posadj)
         until obj.pC.comparePositions(posadj, obj.pC.getRelativePosition())
-
-    local direction = mission.IN.getDirection(obj.pC.getRelativePosition())
-    if (direction == "changelayer") then
+        step = 2
+    local direction = mission.IN.getDirection(obj.pC.getRelativePosition()) step = 3
+    if (direction == "changelayer") then step = 4
         robot.swingUp()
         mission.IN.changeLayer(mission.doNothing, true) -- second argument mean "action then move", change Down to Up if upsidedown change
-        direction = mission.IN.getDirection(obj.pC.getRelativePosition())
-        elseif(direction == "mission ends") then
-        obj.pC.setPositionRelative(mission.IN.positionAdjustment(nil), "lastaction")
-        repeat
-        obj.mC.moveTo(obj.pC.points.lastaction)
-        until obj.pC.comparePositions(obj.pC.points.lastaction, obj.pC.getRelativePosition())
-        direction = mission.IN.getDirection(obj.pC.getRelativePosition())
+        direction = mission.IN.getDirection(obj.pC.getRelativePosition()) step = 5
+        elseif(direction == "mission ends") then step = 6
+        obj.pC.setPositionRelative(mission.IN.positionAdjustment(nil), "lastaction") step = 7
+        repeat step = 8
+        obj.mC.moveTo(obj.pC.points.lastaction) step = 9
+        until obj.pC.comparePositions(obj.pC.points.lastaction, obj.pC.getRelativePosition()) step = 10
+        direction = mission.IN.getDirection(obj.pC.getRelativePosition()) step = 11
     end
-    obj.mC.turnTo(direction)
+    obj.mC.turnTo(direction) step = 12
 
 
     local actions = {}
     actions[1] = robot.useDown
-
+        step = 13
 
 
     if (mission.IN.positionAdjustment(obj.pC.getRelativePosition()) ~= false) then
-
+        step = 14
         local dist = mission.IN.getDistToBorder(direction, obj.pC.getRelativePosition())
         if (dist > 30) then dist = 30 end
 
-
+        step = 15
         for i=1, dist do
             mission.IN.doAction(actions)
             robot.forward()
         end
-
+        step = 16
     end
 
-
+        step = 17
     if (mission.IN.positionAdjustment(obj.pC.getRelativePosition()) ~= false) then
                 obj.pC.setPositionRelative(mission.IN.positionAdjustment(obj.pC.getRelativePosition()), "lastaction")
     end
