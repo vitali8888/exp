@@ -254,9 +254,10 @@ function mission.start()
     end
 
         mission.step = 17
-    if (mission.IN.positionAdjustment(obj.pC.getRelativePosition()) ~= false) then
+    if (mission.IN.positionAdjustment(obj.pC.getRelativePosition()) ~= false) then mission.step = 18
                 obj.pC.setPositionRelative(mission.IN.positionAdjustment(obj.pC.getRelativePosition()), "lastaction")
     end
+        mission.step = 19
 
     os.sleep(0.15)
 
