@@ -49,7 +49,7 @@ function me.init()
          print("need to set real position")
     end
 
-end
+en3d
 
 function me.clearSavedPositions()
     local filesystem = require ("filesystem")
