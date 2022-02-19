@@ -1,7 +1,7 @@
 local me = {}
 
 function oswget(data)
-    os.execute("wget -f https://raw.githubusercontent.com/OrlaithMichael/-experimental/master/"..data)
+    os.execute("wget -f https://raw.githubusercontent.com/vitali8888/exp/main/"..data)
 end
 
 function osmkdir(data)
@@ -9,7 +9,7 @@ function osmkdir(data)
 end
 
 function osmv(data1, data2)
-    os.execute("wget -f https://raw.githubusercontent.com/OrlaithMichael/-experimental/master/"..data2)
+    os.execute("wget -f https://raw.githubusercontent.com/vitali8888/exp/main/"..data2)
     os.execute("mv "..data1.." "..data2)
 end
 
