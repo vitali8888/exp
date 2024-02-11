@@ -5,9 +5,15 @@ local component = require("component")
 local address = ''
 
 for key, value in pairs(component.list()) do
-    print ("key: " .. key .. " value: " .. value)
+    --print ("key: " .. key .. " value: " .. value)
     if value == "geolyzer" then address = key end
 end
 
-print (address)
+local tableOfMethods = component.methods(address);
+
+for key, value in pairs(tableOfMethods) do
+    print ("key: " .. key .. " value: " .. value)
+end
+
+
 
