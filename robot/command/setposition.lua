@@ -8,13 +8,12 @@ local function me(message)
     
     local thing = tostring(message[2])
 
-    sender(thing)
 
-    --if (pos.x == nil or pos.y == nil or pos.z == nil) then sender("Error! invalid position!") do return end end
+    if (pos.x == nil or pos.y == nil or pos.z == nil) then sender("Error! invalid position!") do return end end
 
-    --local class = require ("class/singleton")
-    --obj = class.new()
-    --obj.pC.setPosition(pos, thing)
+    local class = require ("class/singleton")
+    obj = class.new()
+    obj.pC.setPosition(pos, thing)
 
 
 
