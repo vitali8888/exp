@@ -1,6 +1,6 @@
 local component = require("component")
 
---local geo = component.geolyzer
+local geo = component.geolyzer
 
 local address = ''
 
@@ -16,6 +16,10 @@ for key, value in pairs(tableOfMethods) do
     print ("key: " .. key)
 end
 --]]
+
+for key, value in pairs(geo) do
+    print (key)
+end
 
 local doc = component.doc(address, "scan")
 
