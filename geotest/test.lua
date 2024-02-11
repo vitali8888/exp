@@ -9,11 +9,17 @@ for key, value in pairs(component.list()) do
     if value == "geolyzer" then address = key end
 end
 
+--[[
 local tableOfMethods = component.methods(address);
 
 for key, value in pairs(tableOfMethods) do
     print ("key: " .. key)
 end
+--]]
+
+local doc = component.doc(address, "scan")
+
+print (doc)
 
 
 
