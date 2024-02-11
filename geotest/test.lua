@@ -12,7 +12,7 @@ end
 local tableOfMethods = component.methods(address);
 
 for key, value in pairs(tableOfMethods) do
-    print ("key: " .. key .. " value: " .. value)
+    print ("key: " .. key)
 end
 
 
